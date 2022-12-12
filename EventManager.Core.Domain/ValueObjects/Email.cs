@@ -13,8 +13,7 @@ namespace EventManager.Core.Domain.ValueObjects
                 throw new InvalidValueObjectStateException("Please Enter The Email");
             }
 
-            if (!Regex.Match(value, @"^(?!\.)(""([^""\r\\]|\\[""\r\\])*""|" + @"([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)" + @"@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]$").Success)
-
+            if (!IsValid(value))
             {
                 throw new InvalidValueObjectStateException("Email Is Not Valid");
             }
@@ -28,7 +27,11 @@ namespace EventManager.Core.Domain.ValueObjects
         {
             return Value == otherObject.Value;
         }
-
+        public static bool IsValid(string value)
+        {
+            return !string.IsNullOrWhiteSpace(value)
+                   && Regex.IsMatch(value, @"^(?!\.)(""([^""\r\\]|\\[""\r\\])*""|" + @"([-a-z0-9!#$%&'*+/=?^_`{|}~]|(?<!\.)\.)*)(?<!\.)" + @"@[a-z0-9][\w\.-]*[a-z0-9]\.[a-z][a-z\.]*[a-z]$");
+        }
         public override int ObjectGetHashCode()
         {
             return GetHashCode();
@@ -36,12 +39,7 @@ namespace EventManager.Core.Domain.ValueObjects
 
         public static Email CreateIfNotEmpty(string email)
         {
-            if (string.IsNullOrWhiteSpace(email))
-            {
-                return null;
-            }
-
-            return new Email(email);
+          return new Email(email);
         }
     }
 

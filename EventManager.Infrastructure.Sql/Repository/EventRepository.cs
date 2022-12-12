@@ -44,7 +44,7 @@ namespace EventManager.Infrastructure.Sql.Repository
 
         public async Task<Event> GetEventByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
-            return await _dbContext.Events.Include(c=>c.Registrations).FirstOrDefaultAsync(c => c.Id.Equals(id), cancellationToken);
+            return await _dbContext.Events.FirstOrDefaultAsync(c => c.Id.Equals(id), cancellationToken);
         }
     }
 }

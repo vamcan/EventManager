@@ -12,12 +12,12 @@ namespace EventManager.Core.Domain.ValueObjects
             {
                 throw new InvalidValueObjectStateException("Please Enter The Phone Number");
             }
-
-            //if (!Regex.Match(value, @"^(\+[0-9]{9})$").Success)
-            //{
-            //    throw new InvalidValueObjectStateException("Phone Number Is not Valid");
-            //}
-          Value=value;
+            if (!IsValid(value))
+            {
+                throw new InvalidValueObjectStateException("Invalid phone number.", nameof(value));
+            }
+            
+            Value =value;
         }
 
         public string Value { get; }
@@ -26,7 +26,11 @@ namespace EventManager.Core.Domain.ValueObjects
         {
             return Value == otherObject.Value;
         }
-
+        public static bool IsValid(string value)
+        {
+            return !string.IsNullOrWhiteSpace(value)
+                   && Regex.IsMatch(value, @"^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$");
+        }
         public override int ObjectGetHashCode()
         {
             return GetHashCode();
@@ -34,12 +38,7 @@ namespace EventManager.Core.Domain.ValueObjects
 
         public static PhoneNumber CreateIfNotEmpty(string mobile)
         {
-            if (string.IsNullOrWhiteSpace(mobile))
-            {
-                return null;
-            }
-
-            return new PhoneNumber(mobile);
+        return new PhoneNumber(mobile);
         }
     }
 }

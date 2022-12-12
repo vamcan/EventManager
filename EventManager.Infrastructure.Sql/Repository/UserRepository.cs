@@ -21,7 +21,7 @@ namespace EventManager.Infrastructure.Sql.Repository
             return user;
         }
 
-        public Task<User> GetUserByIdAsync(int userId, CancellationToken cancellationToken = default)
+        public Task<User?> GetUserByIdAsync(int userId, CancellationToken cancellationToken = default)
         {
             return _dbContext.Users.FirstOrDefaultAsync(c => c.Id.Equals(userId), cancellationToken);
         }
