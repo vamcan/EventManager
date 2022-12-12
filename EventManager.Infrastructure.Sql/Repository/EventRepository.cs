@@ -42,7 +42,7 @@ namespace EventManager.Infrastructure.Sql.Repository
             return @event;
         }
 
-        public async Task<Event> GetEventByIdAsync(Guid id, CancellationToken cancellationToken = default)
+        public async Task<Event?> GetEventByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await _dbContext.Events.FirstOrDefaultAsync(c => c.Id.Equals(id), cancellationToken);
         }

@@ -1,16 +1,9 @@
 ﻿using EventManager.Core.Application.Event.RegisterAtEvent;
 using EventManager.Core.Domain.Contracts.Repository;
-using EventManager.Core.Domain.Entities.Event;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using EventManager.Core.Domain.ValueObjects;
 using Xunit;
 using EventManager.Core.Domain.Entities.User;
-using Microsoft.Extensions.Logging;
 
 namespace EventManager.UnitTests.Handlers.Event
 {
@@ -57,7 +50,50 @@ namespace EventManager.UnitTests.Handlers.Event
             Assert.Equal(currentEvent.Name, result.Result.EventName);
             Assert.Equal(currentEvent.StartTime, result.Result.EventStartTime);
             Assert.Equal(currentEvent.EndTime, result.Result.EventEndTime);
+        }
 
+        [Fact]
+        public async Task RegisterAtEventHandler_Should_Not_Add_Event_If_IEventRepository_Throws_An_Exception()
+        {
+            // Arrange
+            var request = new RegisterAtEventCommand()
+            {
+                EventId = Guid.NewGuid(),
+                Name = "Reza Ghasemi",
+                PhoneNumber = PhoneNumber.CreateIfNotEmpty("123-456-7890"),
+                Email = Email.CreateIfNotEmpty("reza.ghasemi@example.com")
+            };
+            _eventRepositoryMock.Setup(r => r.GetEventByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
+                .Throws(new Exception("Test exception"));
+
+            // Act
+            var result = _handler.Handle(request, CancellationToken.None).Result;
+
+            // Assert
+            Assert.False(result.IsSuccess);
+        }
+
+        [Fact]
+        public async Task RegisterAtEventHandler_Should_Not_Register_Event_If_Event_Does_Not_Exist()
+        {
+            var eventId =Guid.NewGuid();
+            _eventRepositoryMock.Setup(r => r.GetEventByIdAsync(eventId, It.IsAny<CancellationToken>()))
+                .Returns(Task.FromResult<Core.Domain.Entities.Event.Event>(null));
+
+            var request = new RegisterAtEventCommand()
+            {
+                EventId = eventId,
+                Name = "Reza Ghasemi",
+                PhoneNumber = PhoneNumber.CreateIfNotEmpty("123-456-7890"),
+                Email = Email.CreateIfNotEmpty("reza.ghasemi@example.com")
+            };
+
+            // Act
+            var result = _handler.Handle(request, CancellationToken.None).Result;
+
+            // Assert
+            Assert.False(result.IsSuccess);
+            Assert.Equal("Event does not exist", result.ErrorMessage);
         }
     }
 }
