@@ -83,5 +83,36 @@ namespace EventManager.UnitTests.Handlers.Event
             Assert.False(result.IsSuccess);
             Assert.Equal("User does not exist", result.ErrorMessage);
         }
+
+        [Fact]
+        public async Task AddEventHandler_Should_Not_Add_Event_If_IEventRepository_Throws_An_Exception()
+        {
+
+            var userId = 1;
+            var user = User.CreateUser(userId, "test user", "TestUserName", "TestPass");
+            _mockUserRepository.Setup(repo => repo.GetUserByIdAsync(userId, It.IsAny<CancellationToken>()))
+                .ReturnsAsync(user);
+
+            _mockEventRepository
+                .Setup(repo =>
+                    repo.AddEventAsync(It.IsAny<Core.Domain.Entities.Event.Event>(), It.IsAny<CancellationToken>()))
+                .ThrowsAsync(new Exception("Test exception"));
+
+            var command = new AddEventCommand()
+            {
+                UserId = userId,
+                Name = "Test Event",
+                Description = "Test event description",
+                Location = "Test location",
+                StartTime = DateTime.Now,
+                EndTime = DateTime.Now.AddDays(1)
+            };
+            
+            // Act
+            var result = await _addEventHandler.Handle(command, CancellationToken.None);
+
+            // Assert
+            Assert.False(result.IsSuccess);
+        }
     }
 }
