@@ -1,9 +1,9 @@
 ﻿using EventManager.Core.Domain.Contracts.Repository;
 using EventManager.Core.Domain.Entities.Event;
-using EventManager.Infrastructure.Sql.Common;
+using EventManager.Infrastructure.Common;
 using Microsoft.EntityFrameworkCore;
 
-namespace EventManager.Infrastructure.Sql.Repository
+namespace EventManager.Infrastructure.Repository
 {
     internal class EventRepository : IEventRepository
     {

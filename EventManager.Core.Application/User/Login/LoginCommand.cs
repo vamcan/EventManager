@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EventManager.Core.Application.Base.Common;
+using MediatR;
 
 namespace EventManager.Core.Application.User.Login
 {
-    internal class LoginCommand
+    public class LoginCommand : IRequest<OperationResult<LoginResult>>
     {
+        public string UserName { get; }
+        public string Password { get; }
     }
 }

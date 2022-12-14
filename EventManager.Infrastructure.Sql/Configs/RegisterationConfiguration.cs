@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading.Tasks;
 using EventManager.Core.Domain.Entities.Event;
 
-namespace EventManager.Infrastructure.Sql.Configs
+namespace EventManager.Infrastructure.Configs
 {
     public class RegisterationConfiguration : IEntityTypeConfiguration<Registeration>
     {

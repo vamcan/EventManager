@@ -1,10 +1,10 @@
 ﻿using EventManager.Core.Domain.Contracts.Repository;
 using Microsoft.Extensions.DependencyInjection;
-using EventManager.Infrastructure.Sql.Common;
-using EventManager.Infrastructure.Sql.Repository;
+using EventManager.Infrastructure.Common;
+using EventManager.Infrastructure.Repository;
 using Microsoft.EntityFrameworkCore;
 
-namespace EventManager.Infrastructure.Sql
+namespace EventManager.Infrastructure
 {
     public static class StartupSetup
     {

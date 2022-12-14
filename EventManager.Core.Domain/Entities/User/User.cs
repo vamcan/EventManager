@@ -8,21 +8,10 @@ namespace EventManager.Core.Domain.Entities.User
         {
         }
         public int Id { get; set; }
-        public string Name { get; set; }
-        public string UserName { get; set; }
-        public string Password { get; set; }
-        public static User CreateUser(int id, string name, string userName, string password)
-        {
-            var model = new User()
-            {
-                Id = id,
-                Name = name,
-                UserName = userName,
-                Password = password
-            };
-            return model;
-        }
-
-
+        public string FirstName { get; }
+        public string LastName { get; }
+        public string Email { get; }
+        public string UserName { get; }
+        public string PasswordHash { get; }
     }
 }

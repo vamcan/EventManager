@@ -1,9 +1,9 @@
 ﻿using EventManager.Core.Domain.Entities.Event;
 using EventManager.Core.Domain.Entities.User;
-using EventManager.Infrastructure.Sql.Configs;
+using EventManager.Infrastructure.Configs;
 using Microsoft.EntityFrameworkCore;
 
-namespace EventManager.Infrastructure.Sql.Common
+namespace EventManager.Infrastructure.Common
 {
     public class EventDbContext: DbContext
     {

@@ -5,17 +5,17 @@ VisualStudioVersion = 17.5.33103.201
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventManager.Core.Domain", "EventManager.Core.Domain\EventManager.Core.Domain.csproj", "{BF7C3CB8-E304-4C16-B762-C9E0DB7B88B6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventManager.Core.Application", "EventManager.Core.Application\EventManager.Core.Application.csproj", "{05149903-D515-4FF3-9932-C2F780F49B7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventManager.Core.Application", "EventManager.Core.Application\EventManager.Core.Application.csproj", "{05149903-D515-4FF3-9932-C2F780F49B7C}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventManager.Infrastructure.Sql", "EventManager.Infrastructure.Sql\EventManager.Infrastructure.Sql.csproj", "{A8D304C0-3CCE-413F-9EA3-C1E63FBB5EEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventManager.Infrastructure", "EventManager.Infrastructure.Sql\EventManager.Infrastructure.csproj", "{A8D304C0-3CCE-413F-9EA3-C1E63FBB5EEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventManager.Web.Api", "EventManager.Web.Api\EventManager.Web.Api.csproj", "{27EB9CE0-47E9-4FC7-9E0C-35B1FD57C8FE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventManager.Web.Api", "EventManager.Web.Api\EventManager.Web.Api.csproj", "{27EB9CE0-47E9-4FC7-9E0C-35B1FD57C8FE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Src", "Src", "{56760F9E-49D9-4BB1-887D-25E92B3E9139}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{95BA6A27-1468-4B7A-A52C-B3E5E28E0972}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventManager.UnitTests", "EventManager.UnitTests\EventManager.UnitTests.csproj", "{4B4FF722-7FF2-484B-99A8-14F294927284}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventManager.UnitTests", "EventManager.UnitTests\EventManager.UnitTests.csproj", "{4B4FF722-7FF2-484B-99A8-14F294927284}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

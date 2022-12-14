@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using EventManager.Core.Application.Auth.Dto;
 
 namespace EventManager.Core.Application.User.Login
 {
-    internal class LoginResult
+    public class LoginResult
     {
+        public Token Token { get; set; }
     }
 }
