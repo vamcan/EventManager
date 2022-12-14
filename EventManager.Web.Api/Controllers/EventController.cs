@@ -28,7 +28,7 @@ namespace EventManager.Web.Api.Controllers
                EndTime = request.EndTime,
                StartTime = request.StartTime,
                Location = request.Location,
-               UserId = 1
+               UserId = Guid.NewGuid()
             };
             var addEvent = await _mediatR.Send(addEventCommand, cancellationToken);
             if (addEvent.IsSuccess)

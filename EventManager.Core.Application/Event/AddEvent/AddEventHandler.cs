@@ -19,7 +19,7 @@ namespace EventManager.Core.Application.Event.AddEvent
         {
             try
             {
-                var user = await _userRepository.GetUserByIdAsync(request.UserId, cancellationToken);
+                var user = await _userRepository.GetUserByIdAsync(request.UserId);
                 if (user == null)
                 {
                     return OperationResult<AddEventResult>.NotFoundResult("User does not exist");

@@ -29,7 +29,7 @@ namespace EventManager.UnitTests.Handlers.Event
                 PhoneNumber = PhoneNumber.CreateIfNotEmpty("123-456-7890"),
                 Email = Email.CreateIfNotEmpty("reza.ghasemi@example.com")
             };
-            var user = User.CreateUser(1, "test user", "TestUserName", "TestPass");
+            var user = User.CreateUser(Guid.NewGuid(), "test user", "Test Family", "TestUsername", "Test Email", "Test PasswordHash");
             var currentEvent = Core.Domain.Entities.Event.Event.CreatEvent(request.EventId, "Test Event", "This is a test event", "Test location",
                 DateTime.Now, DateTime.Now.AddHours(1), user);
 
@@ -46,7 +46,7 @@ namespace EventManager.UnitTests.Handlers.Event
             Assert.NotNull(result.Result);
             Assert.Equal(request.Name, result.Result.Name);
             Assert.Equal(request.PhoneNumber.Value, result.Result.PhoneNumber);
-            Assert.Equal(request.Email.Value, result.Result.Email); 
+            Assert.Equal(request.Email.Value, result.Result.Email);
             Assert.Equal(currentEvent.Name, result.Result.EventName);
             Assert.Equal(currentEvent.StartTime, result.Result.EventStartTime);
             Assert.Equal(currentEvent.EndTime, result.Result.EventEndTime);
@@ -76,7 +76,7 @@ namespace EventManager.UnitTests.Handlers.Event
         [Fact]
         public async Task RegisterAtEventHandler_Should_Not_Register_Event_If_Event_Does_Not_Exist()
         {
-            var eventId =Guid.NewGuid();
+            var eventId = Guid.NewGuid();
             _eventRepositoryMock.Setup(r => r.GetEventByIdAsync(eventId, It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult<Core.Domain.Entities.Event.Event>(null));
 
