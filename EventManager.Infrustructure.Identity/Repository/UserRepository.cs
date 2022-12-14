@@ -21,6 +21,7 @@ namespace EventManager.Infrastructure.Identity.Repository
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
+                UserName = user.UserName
             };
             var identityResult = await _userManager.CreateAsync(applicationUser, password);
             if (identityResult.Succeeded)
@@ -41,7 +42,7 @@ namespace EventManager.Infrastructure.Identity.Repository
             }
 
             var user = User.CreateUser(new Guid(identityUser.Id), identityUser.FirstName, identityUser.LastName,
-                identityUser.UserName, identityUser.Email, identityUser.PasswordHash);
+                identityUser.UserName, identityUser.Email);
             return user;
         }
 
@@ -54,7 +55,7 @@ namespace EventManager.Infrastructure.Identity.Repository
             }
 
             var user = User.CreateUser(new Guid(identityUser.Id), identityUser.FirstName, identityUser.LastName,
-                identityUser.UserName, identityUser.Email, identityUser.PasswordHash);
+                identityUser.UserName, identityUser.Email);
             return user;
         }
 

@@ -23,23 +23,15 @@ namespace EventManager.Core.Application.User.AddUser
         {
             try
             {
-                if (!string.IsNullOrEmpty(request.UserName) && !string.IsNullOrEmpty(request.Password))
+                var user = Domain.Entities.User.User.CreateUser(Guid.NewGuid(), request.FirstName, request.LastName,
+                    request.UserName, request.Email);
+                var result = await _userRepository.AddUserAsync(user, request.Password);
+                if (result == null)
                 {
-                    // confirm we have a user with the given name
-                    var user = await _userRepository.FindByName(request.UserName);
-                    if (user != null)
-                    {
-                        // validate password
-                        if (await _userRepository.CheckPassword(user, request.Password))
-                        {
-                            // generate token
-                            var token = await _jwtFactory.GenerateEncodedToken(user.Id, user.UserName);
-                            var loginResult = new AddUserResult() { User = user };
-                            return OperationResult<AddUserResult>.SuccessResult(loginResult);
-                        }
-                    }
+                    return OperationResult<AddUserResult>.FailureResult("user not registered."); ;
                 }
-                return OperationResult<AddUserResult>.FailureResult("Invalid username or password."); ;
+
+                return OperationResult<AddUserResult>.SuccessResult(new AddUserResult() { User = user });
             }
             catch (Exception e)
             {

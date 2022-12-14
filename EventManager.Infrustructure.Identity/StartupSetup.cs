@@ -22,7 +22,7 @@ namespace EventManager.Infrastructure.Identity
 
         public static void AddIdentityInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Default"), b => b.MigrationsAssembly("Web.Api.Infrastructure")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Default"), b => b.MigrationsAssembly("EventManager.Infrastructure.Identity")));
 
             // jwt wire up
             // Get options from app settings

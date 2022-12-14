@@ -1,4 +1,5 @@
-﻿using EventManager.Core.Application.ServiceConfiguration;
+﻿using System.Text.Json.Serialization;
+using EventManager.Core.Application.ServiceConfiguration;
 using EventManager.Infrastructure.Sql;
 using EventManager.Infrastructure.Identity;
 
@@ -8,7 +9,8 @@ namespace EventManager.Web.Api.Startup
     {
         public static void Add(IServiceCollection services, IWebHostEnvironment env, IConfiguration configuration)
         {
-            services.AddControllers();
+            services.AddControllers().AddJsonOptions(x =>
+                x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             services.AddEndpointsApiExplorer();
             services.AddSwaggerGen();

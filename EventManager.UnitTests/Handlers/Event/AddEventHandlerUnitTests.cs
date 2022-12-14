@@ -23,7 +23,7 @@ namespace EventManager.UnitTests.Handlers.Event
         public async Task TestAddEventHandler()
         {
             var userId = Guid.NewGuid();
-            var user = User.CreateUser(userId, "test user", "TestUserName", "TestPass","test@gmail.com", "e10adc3949ba59abbe56e057f20f883e");
+            var user = User.CreateUser(userId, "test user", "TestUserName", "TestPass","test@gmail.com");
             _mockUserRepository.Setup(repo => repo.GetUserByIdAsync(userId))
                 .ReturnsAsync(user);
 
@@ -89,7 +89,7 @@ namespace EventManager.UnitTests.Handlers.Event
         {
 
             var userId = Guid.NewGuid();
-            var user = User.CreateUser(userId, "test user", "TestUserName", "TestPass","test@test.com", "e10adc3949ba59abbe56e057f20f883e");
+            var user = User.CreateUser(userId, "test user", "TestUserName", "TestPass","test@test.com");
             _mockUserRepository.Setup(repo => repo.GetUserByIdAsync(userId))
                 .ReturnsAsync(user);
 

@@ -16,7 +16,7 @@ namespace EventManager.Core.Domain.Entities.User
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
 
-        public static User CreateUser(Guid id, string firstName, string lastName ,string userName,string email,string passwordHash)
+        public static User CreateUser(Guid id, string firstName, string lastName ,string userName,string email)
         {
             var model = new User()
             {
@@ -25,7 +25,6 @@ namespace EventManager.Core.Domain.Entities.User
                 LastName = lastName,
                 UserName = userName,
                 Email = email,
-                PasswordHash = passwordHash
             };
             return model;
         }
