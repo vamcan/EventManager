@@ -2,7 +2,7 @@
 
 namespace EventManager.Core.Domain.Entities.Event
 {
-    public class Event : IAggregateRoot
+    public class Event : IBaseEntity, IAggregateRoot
     {
         private Event()
         {
@@ -15,6 +15,8 @@ namespace EventManager.Core.Domain.Entities.Event
         public DateTime StartTime { get; private init; }
         public DateTime EndTime { get; private init; }
         public User.User User { get; private init; }
+        public DateTime Created { get; set; }
+        public DateTime Modified { get; set; }
         public static Event CreatEvent(Guid id, string name, string description, string location, DateTime startTime, DateTime endTime,User.User user)
         {
             var model = new Event()
@@ -46,5 +48,7 @@ namespace EventManager.Core.Domain.Entities.Event
         {
             _registerations.Add(registration);
         }
+
+   
     }
 }

@@ -22,9 +22,9 @@ namespace EventManager.UnitTests.Handlers.Event
         [Fact]
         public async Task TestAddEventHandler()
         {
-            var userId = 1;
-            var user = User.CreateUser(userId, "test user", "TestUserName", "TestPass");
-            _mockUserRepository.Setup(repo => repo.GetUserByIdAsync(userId, It.IsAny<CancellationToken>()))
+            var userId = Guid.NewGuid();
+            var user = User.CreateUser(userId, "test user", "TestUserName", "TestPass","test@gmail.com", "e10adc3949ba59abbe56e057f20f883e");
+            _mockUserRepository.Setup(repo => repo.GetUserByIdAsync(userId))
                 .ReturnsAsync(user);
 
             var eventId = Guid.NewGuid();
@@ -62,8 +62,8 @@ namespace EventManager.UnitTests.Handlers.Event
         [Fact]
         public async Task AddEventHandler_Should_Not_Add_Event_If_User_Does_Not_Exist()
         {
-            var userId = 1;
-            _mockUserRepository.Setup(r => r.GetUserByIdAsync(userId, It.IsAny<CancellationToken>()))
+            var userId =Guid.NewGuid();
+            _mockUserRepository.Setup(r => r.GetUserByIdAsync(userId))
                 .Returns(Task.FromResult<User>(null));
 
             var command = new AddEventCommand()
@@ -88,9 +88,9 @@ namespace EventManager.UnitTests.Handlers.Event
         public async Task AddEventHandler_Should_Not_Add_Event_If_IEventRepository_Throws_An_Exception()
         {
 
-            var userId = 1;
-            var user = User.CreateUser(userId, "test user", "TestUserName", "TestPass");
-            _mockUserRepository.Setup(repo => repo.GetUserByIdAsync(userId, It.IsAny<CancellationToken>()))
+            var userId = Guid.NewGuid();
+            var user = User.CreateUser(userId, "test user", "TestUserName", "TestPass","test@test.com", "e10adc3949ba59abbe56e057f20f883e");
+            _mockUserRepository.Setup(repo => repo.GetUserByIdAsync(userId))
                 .ReturnsAsync(user);
 
             _mockEventRepository

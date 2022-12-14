@@ -4,6 +4,6 @@ namespace EventManager.Core.Application.Auth
 {
     public interface IJwtFactory
     {
-        Task<Token> GenerateEncodedToken(int id, string userName);
+        Task<Token> GenerateEncodedToken(Guid id, string userName);
     }
 }

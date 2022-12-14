@@ -1,27 +1,16 @@
 ﻿using EventManager.Core.Domain.Base;
-using EventManager.Core.Domain.Entities.Event;
-using EventManager.Infrastructure.Sql.Configs;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using EventManager.Infrastructure.Identity.Model;
 
-namespace EventManager.Infrastructure.Sql.Common
+namespace EventManager.Infrastructure.Identity.Common
 {
-    public class EventDbContext: DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public EventDbContext(DbContextOptions<EventDbContext> option
-        )
-            : base(option)
+        public ApplicationDbContext(DbContextOptions options) : base(options)
         {
-
         }
 
-        public DbSet<Event> Events { get; set; }
-        public DbSet<Registeration> Registerations { get; set; }
-
-        protected override void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            modelBuilder.ApplyConfiguration(new RegisterationConfiguration());
-            base.OnModelCreating(modelBuilder);
-        }
         public override int SaveChanges()
         {
             AddAuitInfo();
@@ -47,4 +36,5 @@ namespace EventManager.Infrastructure.Sql.Common
             }
         }
     }
+
 }

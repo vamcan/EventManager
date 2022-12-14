@@ -1,5 +1,5 @@
 ﻿using EventManager.Core.Application.ServiceConfiguration;
-using EventManager.Infrastructure;
+using EventManager.Infrastructure.Sql;
 
 namespace EventManager.Web.Api.Startup
 {

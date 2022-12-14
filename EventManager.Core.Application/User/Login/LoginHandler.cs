@@ -25,11 +25,11 @@ namespace EventManager.Core.Application.User.Login
                 if (!string.IsNullOrEmpty(request.UserName) && !string.IsNullOrEmpty(request.Password))
                 {
                     // confirm we have a user with the given name
-                    var user = await _userRepository.FindByName(request.UserName, cancellationToken);
+                    var user = await _userRepository.FindByName(request.UserName);
                     if (user != null)
                     {
                         // validate password
-                        if (await _userRepository.CheckPassword(user, request.Password, cancellationToken))
+                        if (await _userRepository.CheckPassword(user, request.Password))
                         {
                             // generate token
                             var token = await _jwtFactory.GenerateEncodedToken(user.Id, user.UserName);
