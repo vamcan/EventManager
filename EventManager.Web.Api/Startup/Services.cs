@@ -1,5 +1,6 @@
 ﻿using EventManager.Core.Application.ServiceConfiguration;
 using EventManager.Infrastructure.Sql;
+using EventManager.Infrastructure.Identity;
 
 namespace EventManager.Web.Api.Startup
 {
@@ -13,14 +14,15 @@ namespace EventManager.Web.Api.Startup
             services.AddSwaggerGen();
 
             #region Services
-          
+
+
+            services.AddIdentityInfrastructureServices(configuration);
             
-          
-          
-           
+
             services.AddEventDbContext(configuration.GetConnectionString("Default"));
-            services.AddApplicationServices();   
             services.AddSqlInfrastructureServices();
+
+            services.AddApplicationServices();
             #endregion
         }
     }
