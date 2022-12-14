@@ -34,7 +34,7 @@ namespace EventManager.Core.Application.User.AddUser
                         {
                             // generate token
                             var token = await _jwtFactory.GenerateEncodedToken(user.Id, user.UserName);
-                            var loginResult = new AddUserResult() { User = user};
+                            var loginResult = new AddUserResult() { User = user };
                             return OperationResult<AddUserResult>.SuccessResult(loginResult);
                         }
                     }
