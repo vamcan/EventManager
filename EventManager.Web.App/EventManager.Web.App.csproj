@@ -1,0 +1,16 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EventManager.Core.Application\EventManager.Core.Application.csproj" />
+    <ProjectReference Include="..\EventManager.Core.Domain\EventManager.Core.Domain.csproj" />
+    <ProjectReference Include="..\EventManager.Infrastructure.Sql\EventManager.Infrastructure.Sql.csproj" />
+    <ProjectReference Include="..\EventManager.Infrustructure.Identity\EventManager.Infrastructure.Auth.csproj" />
+  </ItemGroup>
+
+</Project>
