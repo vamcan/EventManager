@@ -26,8 +26,8 @@ namespace EventManager.UnitTests.Handlers.Event
             {
                 EventId = Guid.NewGuid(),
                 Name = "Reza Ghasemi",
-                PhoneNumber = PhoneNumber.CreateIfNotEmpty("123-456-7890"),
-                Email = Email.CreateIfNotEmpty("reza.ghasemi@example.com")
+                PhoneNumber = "123-456-7890",
+                Email = "reza.ghasemi@example.com"
             };
             var user = User.CreateUser(Guid.NewGuid(), "test user", "Test Family", "TestUsername", Email.CreateIfNotEmpty("Test@Email.com"));
             var currentEvent = Core.Domain.Entities.Event.Event.CreatEvent(request.EventId, "Test Event", "This is a test event", "Test location",
@@ -45,8 +45,8 @@ namespace EventManager.UnitTests.Handlers.Event
             Assert.True(result.IsSuccess);
             Assert.NotNull(result.Result);
             Assert.Equal(request.Name, result.Result.Name);
-            Assert.Equal(request.PhoneNumber.Value, result.Result.PhoneNumber);
-            Assert.Equal(request.Email.Value, result.Result.Email);
+            Assert.Equal(request.PhoneNumber, result.Result.PhoneNumber);
+            Assert.Equal(request.Email, result.Result.Email);
             Assert.Equal(currentEvent.Name, result.Result.EventName);
             Assert.Equal(currentEvent.StartTime, result.Result.EventStartTime);
             Assert.Equal(currentEvent.EndTime, result.Result.EventEndTime);
@@ -60,8 +60,8 @@ namespace EventManager.UnitTests.Handlers.Event
             {
                 EventId = Guid.NewGuid(),
                 Name = "Reza Ghasemi",
-                PhoneNumber = PhoneNumber.CreateIfNotEmpty("123-456-7890"),
-                Email = Email.CreateIfNotEmpty("reza.ghasemi@example.com")
+                PhoneNumber = "123-456-7890",
+                Email = "reza.ghasemi@example.com"
             };
             _eventRepositoryMock.Setup(r => r.GetEventByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
                 .Throws(new Exception("Test exception"));
@@ -84,8 +84,8 @@ namespace EventManager.UnitTests.Handlers.Event
             {
                 EventId = eventId,
                 Name = "Reza Ghasemi",
-                PhoneNumber = PhoneNumber.CreateIfNotEmpty("123-456-7890"),
-                Email = Email.CreateIfNotEmpty("reza.ghasemi@example.com")
+                PhoneNumber = "123-456-7890",
+                Email = "reza.ghasemi@example.com"
             };
 
             // Act

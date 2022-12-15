@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventManager.Infrastructure.Sql.Common
 {
-    public class EventDbContext: DbContext
+    public class EventDbContext : DbContext
     {
         public EventDbContext(DbContextOptions<EventDbContext> option
         )
@@ -26,17 +26,21 @@ namespace EventManager.Infrastructure.Sql.Common
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             base.OnModelCreating(modelBuilder);
         }
-        public override int SaveChanges()
+
+        public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
             AddAuitInfo();
-            return base.SaveChanges();
+            return base.SaveChanges(acceptAllChangesOnSuccess);
         }
 
-        public async Task<int> SaveChangesAsync()
+
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
             AddAuitInfo();
-            return await base.SaveChangesAsync();
+            return base.SaveChangesAsync(cancellationToken);
         }
+
+
 
         private void AddAuitInfo()
         {

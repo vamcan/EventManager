@@ -11,11 +11,11 @@ namespace EventManager.Web.Api.Controllers
     [Route("api/[controller]")]
     public class EventController : Controller
     {
-        private readonly IMediator _mediatR;
+        private readonly IMediator _mediator;
 
-        public EventController(IMediator mediatR)
+        public EventController(IMediator mediator)
         {
-            _mediatR = mediatR;
+            _mediator = mediator;
         }
 
         [HttpPost("CreateEvent")]
@@ -31,13 +31,8 @@ namespace EventManager.Web.Api.Controllers
                Location = request.Location,
                UserName = "reza"
             };
-            var addEvent = await _mediatR.Send(addEventCommand, cancellationToken);
-            if (addEvent.IsSuccess)
-            {
-                return Ok(addEvent.Result);
-            }
-
-            return BadRequest(addEvent.ErrorMessage);
+            var result = await _mediator.Send(addEventCommand, cancellationToken);
+            return Ok(result);
         }
         [HttpPost("RegisterAtEvent")]
         public async Task<IActionResult> RegisterAtEvent([FromBody] RegisterAtEventRequest request, CancellationToken cancellationToken)
@@ -45,18 +40,13 @@ namespace EventManager.Web.Api.Controllers
             var registerAtEventCommand = new RegisterAtEventCommand()
             {
                Name = request.Name,
-               Email = Email.CreateIfNotEmpty(request.Email),
-               PhoneNumber = PhoneNumber.CreateIfNotEmpty(request.PhoneNumber),
+               Email = request.Email,
+               PhoneNumber = request.PhoneNumber,
                EventId = request.EventId,
 
             };
-            var addEvent = await _mediatR.Send(registerAtEventCommand, cancellationToken);
-            if (addEvent.IsSuccess)
-            {
-                return Ok(addEvent.Result);
-            }
-
-            return BadRequest(addEvent.ErrorMessage);
+            var result = await _mediator.Send(registerAtEventCommand, cancellationToken);
+            return Ok(result);
         }
     }
 }
