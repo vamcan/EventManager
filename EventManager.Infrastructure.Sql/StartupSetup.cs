@@ -15,6 +15,7 @@ namespace EventManager.Infrastructure.Sql
         public static void AddSqlInfrastructureServices(this IServiceCollection services)
         {
             services.AddScoped<IEventRepository, EventRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
         }
     }
 }

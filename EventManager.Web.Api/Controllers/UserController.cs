@@ -23,7 +23,7 @@ namespace EventManager.Web.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var result = _mediator.Send(request, cancellationToken);
+            var result =await _mediator.Send(request, cancellationToken);
             return Ok(result);
         }
 
@@ -35,7 +35,7 @@ namespace EventManager.Web.Api.Controllers
                 return BadRequest(ModelState);
             }
 
-            var result = _mediator.Send(request, cancellationToken);
+            var result =await _mediator.Send(request, cancellationToken);
             return Ok(result);
         }
     }
