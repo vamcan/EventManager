@@ -1,6 +1,7 @@
 ﻿using EventManager.Core.Application.Event.AddEvent;
 using EventManager.Core.Domain.Contracts.Repository;
 using EventManager.Core.Domain.Entities.User;
+using EventManager.Core.Domain.ValueObjects;
 using Moq;
 using Xunit;
 
@@ -23,7 +24,7 @@ namespace EventManager.UnitTests.Handlers.Event
         public async Task TestAddEventHandler()
         {
             var userId = Guid.NewGuid();
-            var user = User.CreateUser(userId, "test user", "TestUserName", "TestPass","test@gmail.com");
+            var user = User.CreateUser(userId, "test user", "TestUserName", "TestPass",Email.CreateIfNotEmpty("test@gmail.com"));
             _mockUserRepository.Setup(repo => repo.FindByIdAsync(userId,CancellationToken.None))
                 .ReturnsAsync(user);
 
@@ -89,7 +90,7 @@ namespace EventManager.UnitTests.Handlers.Event
         {
 
             var userId = Guid.NewGuid();
-            var user = User.CreateUser(userId, "test user", "TestUserName", "TestPass","test@test.com");
+            var user = User.CreateUser(userId, "test user", "TestUserName", "TestPass",Email.CreateIfNotEmpty("test@test.com"));
             _mockUserRepository.Setup(repo => repo.FindByIdAsync(userId,CancellationToken.None))
                 .ReturnsAsync(user);
 

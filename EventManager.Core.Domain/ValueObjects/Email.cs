@@ -6,7 +6,7 @@ namespace EventManager.Core.Domain.ValueObjects
 {
     public class Email : BaseValueObject<Email>
     {
-        private Email(string value)
+        public Email(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
             {

@@ -30,7 +30,7 @@ namespace EventManager.Core.Application.User.Login
                     if (user != null)
                     {
                         // validate password
-                        if (PasswordHash.CreateIfNotEmpty(request.Password).ObjectIsEqual(user.PasswordHash))
+                        if (PasswordHash.CreateIfNotEmpty(request.Password).Value.Equals(user.HashedPassword))
                         {
                             // generate token
                             var token = await _tokenFactory.GenerateEncodedToken(user.Id, user.UserName);

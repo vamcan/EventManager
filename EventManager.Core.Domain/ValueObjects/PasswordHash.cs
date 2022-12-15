@@ -1,28 +1,33 @@
 ﻿using EventManager.Core.Domain.Base;
+using EventManager.Core.Domain.Base.Exceptions;
 using System.Security.Cryptography;
+using System.Text;
 
 namespace EventManager.Core.Domain.ValueObjects
 {
     public class PasswordHash : BaseValueObject<PasswordHash>
     {
-        const int SaltSize = 16, HashSize = 20, HashIter = 10000;
-        readonly byte[] _salt, _hash;
+
         public string Value { get; }
-        private PasswordHash(string password)
+        public PasswordHash(string value)
         {
-            new RNGCryptoServiceProvider().GetBytes(_salt = new byte[SaltSize]);
-            _hash = new Rfc2898DeriveBytes(password, _salt, HashIter).GetBytes(HashSize);
-            Value = Convert.ToBase64String(_hash);
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new InvalidValueObjectStateException("Please Enter The Password");
+            }
+
+            Value = HashPassword(value);
         }
 
-        public bool Verify(string password)
+        public string HashPassword(string password)
         {
-            byte[] test = new Rfc2898DeriveBytes(password, _salt, HashIter).GetBytes(HashSize);
-            for (int i = 0; i < HashSize; i++)
-                if (test[i] != _hash[i])
-                    return false;
-            return true;
+            var provider = MD5.Create();
+            string salt = "S0m3R@nd0mSalt";
+            byte[] bytes = provider.ComputeHash(Encoding.ASCII.GetBytes(salt + password));
+            string computedHash = BitConverter.ToString(bytes);
+            return computedHash.Replace("-", "");
         }
+
 
         public override bool ObjectIsEqual(PasswordHash otherObject)
         {

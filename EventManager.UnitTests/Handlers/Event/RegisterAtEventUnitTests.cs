@@ -29,7 +29,7 @@ namespace EventManager.UnitTests.Handlers.Event
                 PhoneNumber = PhoneNumber.CreateIfNotEmpty("123-456-7890"),
                 Email = Email.CreateIfNotEmpty("reza.ghasemi@example.com")
             };
-            var user = User.CreateUser(Guid.NewGuid(), "test user", "Test Family", "TestUsername", "Test Email");
+            var user = User.CreateUser(Guid.NewGuid(), "test user", "Test Family", "TestUsername", Email.CreateIfNotEmpty("Test@Email.com"));
             var currentEvent = Core.Domain.Entities.Event.Event.CreatEvent(request.EventId, "Test Event", "This is a test event", "Test location",
                 DateTime.Now, DateTime.Now.AddHours(1), user);
 

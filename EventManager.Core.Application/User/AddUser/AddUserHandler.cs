@@ -2,6 +2,7 @@
 using EventManager.Core.Application.Base.Common;
 using EventManager.Core.Application.User.Login;
 using EventManager.Core.Domain.Contracts.Repository;
+using EventManager.Core.Domain.ValueObjects;
 using MediatR;
 
 namespace EventManager.Core.Application.User.AddUser
@@ -22,7 +23,7 @@ namespace EventManager.Core.Application.User.AddUser
             try
             {
                 var user = Domain.Entities.User.User.CreateUser(Guid.NewGuid(), request.FirstName, request.LastName,
-                    request.UserName, request.Email);
+                    request.UserName, Email.CreateIfNotEmpty(request.Email));
                 user.SetPasswordHash(request.Password);
                 var result = await _userRepository.AddUserAsync(user);
                 if (result == null)
