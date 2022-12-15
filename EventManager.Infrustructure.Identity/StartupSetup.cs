@@ -1,11 +1,9 @@
 ﻿using EventManager.Core.Application.Auth;
 using EventManager.Infrastructure.Auth.Jwt;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using EventManager.Core.Domain.Entities.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 
 namespace EventManager.Infrastructure.Auth
