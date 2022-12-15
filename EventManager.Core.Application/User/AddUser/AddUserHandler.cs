@@ -10,13 +10,11 @@ namespace EventManager.Core.Application.User.AddUser
     {
 
         private readonly IUserRepository _userRepository;
-        private readonly IJwtFactory _jwtFactory;
 
 
-        public AddUserHandler(IUserRepository userRepository, IJwtFactory jwtFactory)
+        public AddUserHandler(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _jwtFactory = jwtFactory;
         }
 
         public async Task<OperationResult<AddUserResult>> Handle(AddUserCommand request, CancellationToken cancellationToken)
@@ -25,10 +23,11 @@ namespace EventManager.Core.Application.User.AddUser
             {
                 var user = Domain.Entities.User.User.CreateUser(Guid.NewGuid(), request.FirstName, request.LastName,
                     request.UserName, request.Email);
-                var result = await _userRepository.AddUserAsync(user, request.Password);
+                user.SetPasswordHash(request.Password);
+                var result = await _userRepository.AddUserAsync(user);
                 if (result == null)
                 {
-                    return OperationResult<AddUserResult>.FailureResult("user not registered."); ;
+                    return OperationResult<AddUserResult>.FailureResult("User failed to register."); ;
                 }
 
                 return OperationResult<AddUserResult>.SuccessResult(new AddUserResult() { User = user });

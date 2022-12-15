@@ -1,6 +1,7 @@
 ﻿using EventManager.Core.Application.Auth;
 using EventManager.Core.Application.Base.Common;
 using EventManager.Core.Domain.Contracts.Repository;
+using EventManager.Core.Domain.ValueObjects;
 using MediatR;
 
 namespace EventManager.Core.Application.User.Login
@@ -9,13 +10,13 @@ namespace EventManager.Core.Application.User.Login
     {
 
         private readonly IUserRepository _userRepository;
-        private readonly IJwtFactory _jwtFactory;
+        private readonly ITokenFactory _tokenFactory;
 
 
-        public LoginHandler(IUserRepository userRepository, IJwtFactory jwtFactory)
+        public LoginHandler(IUserRepository userRepository, ITokenFactory tokenFactory)
         {
             _userRepository = userRepository;
-            _jwtFactory = jwtFactory;
+            _tokenFactory = tokenFactory;
         }
 
         public async Task<OperationResult<LoginResult>> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -25,14 +26,14 @@ namespace EventManager.Core.Application.User.Login
                 if (!string.IsNullOrEmpty(request.UserName) && !string.IsNullOrEmpty(request.Password))
                 {
                     // confirm we have a user with the given name
-                    var user = await _userRepository.FindByName(request.UserName);
+                    var user = await _userRepository.FindByUserNameAsync(request.UserName, cancellationToken);
                     if (user != null)
                     {
                         // validate password
-                        if (await _userRepository.CheckPassword(user, request.Password))
+                        if (PasswordHash.CreateIfNotEmpty(request.Password).ObjectIsEqual(user.PasswordHash))
                         {
                             // generate token
-                            var token = await _jwtFactory.GenerateEncodedToken(user.Id, user.UserName);
+                            var token = await _tokenFactory.GenerateEncodedToken(user.Id, user.UserName);
                             var loginResult = new LoginResult() { Token = token };
                             return OperationResult<LoginResult>.SuccessResult(loginResult);
                         }

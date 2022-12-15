@@ -6,7 +6,7 @@ namespace EventManager.Core.Domain.ValueObjects
 {
     public class PhoneNumber : BaseValueObject<PhoneNumber>
     {
-        public PhoneNumber(string value)
+        private PhoneNumber(string value)
         {
             if (string.IsNullOrWhiteSpace(value))
             {

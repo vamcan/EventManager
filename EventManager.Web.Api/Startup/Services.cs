@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using EventManager.Core.Application.ServiceConfiguration;
 using EventManager.Infrastructure.Sql;
-using EventManager.Infrastructure.Identity;
+using EventManager.Infrastructure.Auth;
 
 namespace EventManager.Web.Api.Startup
 {

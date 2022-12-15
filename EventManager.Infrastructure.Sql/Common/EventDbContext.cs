@@ -1,5 +1,6 @@
 ﻿using EventManager.Core.Domain.Base;
 using EventManager.Core.Domain.Entities.Event;
+using EventManager.Core.Domain.Entities.User;
 using EventManager.Infrastructure.Sql.Configs;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,11 +16,14 @@ namespace EventManager.Infrastructure.Sql.Common
         }
 
         public DbSet<Event> Events { get; set; }
-        public DbSet<Registeration> Registerations { get; set; }
+        public DbSet<Registeration> Registrations { get; set; }
+        public DbSet<User> Users { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfiguration(new RegisterationConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
             base.OnModelCreating(modelBuilder);
         }
         public override int SaveChanges()

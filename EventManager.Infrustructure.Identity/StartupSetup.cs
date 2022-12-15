@@ -1,18 +1,14 @@
 ﻿using EventManager.Core.Application.Auth;
-using EventManager.Core.Domain.Contracts.Repository;
-using EventManager.Infrastructure.Identity.Common;
-using EventManager.Infrastructure.Identity.Jwt;
-using EventManager.Infrastructure.Identity.Model;
-using EventManager.Infrastructure.Identity.Repository;
+using EventManager.Infrastructure.Auth.Jwt;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using EventManager.Core.Domain.Entities.User;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.EntityFrameworkCore;
 
-namespace EventManager.Infrastructure.Identity
+namespace EventManager.Infrastructure.Auth
 {
     public static class StartupSetup
     {
@@ -22,8 +18,7 @@ namespace EventManager.Infrastructure.Identity
 
         public static void AddIdentityInfrastructureServices(this IServiceCollection services, IConfiguration configuration)
         {
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(configuration.GetConnectionString("Default"), b => b.MigrationsAssembly("EventManager.Infrastructure.Identity")));
-
+          
             // jwt wire up
             // Get options from app settings
             var jwtAppSettingOptions = configuration.GetSection(nameof(JwtIssuerOptions));
@@ -65,7 +60,7 @@ namespace EventManager.Infrastructure.Identity
             });
 
 
-            var identityBuilder = services.AddIdentityCore<ApplicationUser>(o =>
+            var identityBuilder = services.AddIdentityCore<User>(o =>
             {
                 // configure identity options
                 o.Password.RequireDigit = false;
@@ -76,10 +71,8 @@ namespace EventManager.Infrastructure.Identity
             });
 
             identityBuilder = new IdentityBuilder(identityBuilder.UserType, typeof(IdentityRole), identityBuilder.Services);
-            identityBuilder.AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
-            services.AddScoped<IUserRepository, UserRepository>();
-            services.AddSingleton<IJwtFactory, JwtFactory>();
+            services.AddSingleton<ITokenFactory, JwtFactory>();
         }
     }
 }

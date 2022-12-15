@@ -5,9 +5,9 @@ using EventManager.Core.Application.Auth;
 using EventManager.Core.Application.Auth.Dto;
 using Microsoft.Extensions.Options;
 
-namespace EventManager.Infrastructure.Identity.Jwt
+namespace EventManager.Infrastructure.Auth.Jwt
 {
-    public class JwtFactory : IJwtFactory
+    public class JwtFactory : ITokenFactory
     {
         private readonly JwtIssuerOptions _jwtOptions;
 

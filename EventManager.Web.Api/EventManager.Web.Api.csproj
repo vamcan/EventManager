@@ -20,7 +20,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EventManager.Infrastructure.Sql\EventManager.Infrastructure.Sql.csproj" />
-    <ProjectReference Include="..\EventManager.Infrustructure.Identity\EventManager.Infrastructure.Identity.csproj" />
+    <ProjectReference Include="..\EventManager.Infrustructure.Identity\EventManager.Infrastructure.Auth.csproj" />
   </ItemGroup>
 
 </Project>

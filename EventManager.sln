@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{95BA6A27
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EventManager.UnitTests", "EventManager.UnitTests\EventManager.UnitTests.csproj", "{4B4FF722-7FF2-484B-99A8-14F294927284}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventManager.Infrastructure.Identity", "EventManager.Infrustructure.Identity\EventManager.Infrastructure.Identity.csproj", "{6F5A9914-4326-40B1-951F-F01861E88A5E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EventManager.Infrastructure.Auth", "EventManager.Infrustructure.Identity\EventManager.Infrastructure.Auth.csproj", "{6F5A9914-4326-40B1-951F-F01861E88A5E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

@@ -4,9 +4,8 @@ namespace EventManager.Core.Domain.Contracts.Repository
 {
     public interface IUserRepository
     {
-        Task<User> AddUserAsync(User user,string password);
-        Task<User?> GetUserByIdAsync(Guid id);
-        Task<User> FindByName(string userName);
-        Task<bool> CheckPassword(User user, string password);
+        Task<bool> AddUserAsync(User user, CancellationToken cancellationToken = default);
+        Task<User?> FindByIdAsync(Guid id, CancellationToken cancellationToken = default);
+        Task<User?> FindByUserNameAsync(string userName, CancellationToken cancellationToken = default);
     }
 }

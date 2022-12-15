@@ -24,7 +24,7 @@ namespace EventManager.UnitTests.Handlers.Event
         {
             var userId = Guid.NewGuid();
             var user = User.CreateUser(userId, "test user", "TestUserName", "TestPass","test@gmail.com");
-            _mockUserRepository.Setup(repo => repo.GetUserByIdAsync(userId))
+            _mockUserRepository.Setup(repo => repo.FindByIdAsync(userId,CancellationToken.None))
                 .ReturnsAsync(user);
 
             var eventId = Guid.NewGuid();
@@ -33,7 +33,7 @@ namespace EventManager.UnitTests.Handlers.Event
             _mockEventRepository
                 .Setup(repo =>
                     repo.AddEventAsync(It.IsAny< Core.Domain.Entities.Event.Event >(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(@event);
+                .ReturnsAsync(true);
 
             var request = new AddEventCommand
             {
@@ -63,8 +63,8 @@ namespace EventManager.UnitTests.Handlers.Event
         public async Task AddEventHandler_Should_Not_Add_Event_If_User_Does_Not_Exist()
         {
             var userId =Guid.NewGuid();
-            _mockUserRepository.Setup(r => r.GetUserByIdAsync(userId))
-                .Returns(Task.FromResult<User>(null));
+            _mockUserRepository.Setup(r => r.FindByIdAsync(userId,CancellationToken.None))
+                .Returns(Task.FromResult<User>(null!)!);
 
             var command = new AddEventCommand()
             {
@@ -90,7 +90,7 @@ namespace EventManager.UnitTests.Handlers.Event
 
             var userId = Guid.NewGuid();
             var user = User.CreateUser(userId, "test user", "TestUserName", "TestPass","test@test.com");
-            _mockUserRepository.Setup(repo => repo.GetUserByIdAsync(userId))
+            _mockUserRepository.Setup(repo => repo.FindByIdAsync(userId,CancellationToken.None))
                 .ReturnsAsync(user);
 
             _mockEventRepository

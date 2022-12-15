@@ -1,6 +1,6 @@
 ﻿using Microsoft.IdentityModel.Tokens;
 
-namespace EventManager.Infrastructure.Identity.Jwt
+namespace EventManager.Infrastructure.Auth.Jwt
 {
   public class JwtIssuerOptions
   {

@@ -14,20 +14,20 @@ namespace EventManager.Infrastructure.Sql.Repository
             _dbContext = dbContext;
         }
 
-        public async Task<Event> AddEventAsync(Event @event, CancellationToken cancellationToken = default)
+        public async Task<bool> AddEventAsync(Event @event, CancellationToken cancellationToken = default)
         {
             await _dbContext.Events.AddAsync(@event, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-            return @event;
+            var result = await _dbContext.SaveChangesAsync(cancellationToken);
+            return result > 0;
         }
 
-        public async Task<Event> UpdateEventAsync(Event @event, CancellationToken cancellationToken = default)
+        public async Task<bool> UpdateEventAsync(Event @event, CancellationToken cancellationToken = default)
         {
             await _dbContext.Events.AddAsync(@event, cancellationToken);
             _dbContext.Entry(@event).State = EntityState.Modified;
-            
-            await _dbContext.SaveChangesAsync(cancellationToken);
-            return @event;
+
+            var result = await _dbContext.SaveChangesAsync(cancellationToken);
+            return result > 0;
         }
 
         public Task<List<Event>> GetAllEventsAsync(CancellationToken cancellationToken = default)
@@ -35,11 +35,11 @@ namespace EventManager.Infrastructure.Sql.Repository
             return _dbContext.Events.ToListAsync(cancellationToken);
         }
 
-        public async Task<Event> RegisterAtEventAsync(Event @event, CancellationToken cancellationToken = default)
+        public async Task<bool> RegisterAtEventAsync(Event @event, CancellationToken cancellationToken = default)
         {
             await _dbContext.Events.AddAsync(@event, cancellationToken);
-            await _dbContext.SaveChangesAsync(cancellationToken);
-            return @event;
+            var result = await _dbContext.SaveChangesAsync(cancellationToken);
+            return result > 0;
         }
 
         public async Task<Event?> GetEventByIdAsync(Guid id, CancellationToken cancellationToken = default)

@@ -1,6 +1,6 @@
 ﻿
 
-namespace EventManager.Infrastructure.Identity.Helpers
+namespace EventManager.Infrastructure.Auth.Helpers
 {
   public static class Constants
   {

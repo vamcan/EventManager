@@ -9,39 +9,39 @@ namespace EventManager.UnitTests.ValueObjects
         [Fact]
         public void Email_Should_Not_Allow_Empty_String()
         {
-            Assert.Throws<InvalidValueObjectStateException>(() => new Email(""));
+            Assert.Throws<InvalidValueObjectStateException>(() => Email.CreateIfNotEmpty(""));
         }
 
         [Fact]
         public void Email_Should_Not_Allow_Null_String()
         {
-            Assert.Throws<InvalidValueObjectStateException>(() => new Email(null));
+            Assert.Throws<InvalidValueObjectStateException>(() => Email.CreateIfNotEmpty(null));
         }
 
         [Fact]
         public void Email_Should_Not_Allow_Whitespace_String()
         {
-            Assert.Throws<InvalidValueObjectStateException>(() => new Email(" "));
+            Assert.Throws<InvalidValueObjectStateException>(() => Email.CreateIfNotEmpty(" "));
         }
 
         [Fact]
         public void Email_Should_Not_Allow_Invalid_Email_Address()
         {
-            Assert.Throws<InvalidValueObjectStateException>(() => new Email("invalid email address"));
+            Assert.Throws<InvalidValueObjectStateException>(() => Email.CreateIfNotEmpty("invalid email address"));
         }
 
         [Fact]
         public void Email_Should_Allow_Valid_Email_Address()
         {
-            var email = new Email("valid@email.com");
+            var email = Email.CreateIfNotEmpty("valid@email.com");
             Assert.NotNull(email);
         }
 
         [Fact]
         public void Check_Equality_Two_Emails()
         {
-            var email1 = new Email("valid@email.com");
-            var email2 = new Email("valid@email.com");
+            var email1 = Email.CreateIfNotEmpty("valid@email.com");
+            var email2 = Email.CreateIfNotEmpty("valid@email.com");
             Assert.Equal(email1, email2);
         }
     }

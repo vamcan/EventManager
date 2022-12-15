@@ -2,7 +2,7 @@
 
 namespace EventManager.Core.Application.Auth
 {
-    public interface IJwtFactory
+    public interface ITokenFactory
     {
         Task<Token> GenerateEncodedToken(Guid id, string userName);
     }
