@@ -32,7 +32,7 @@ namespace EventManager.Infrastructure.Sql.Repository
 
         public Task<List<Event>> GetAllEventsAsync(CancellationToken cancellationToken = default)
         {
-            return _dbContext.Events.ToListAsync(cancellationToken);
+            return _dbContext.Events.OrderByDescending(c=>c.Created).ToListAsync(cancellationToken);
         }
 
         public async Task<bool> RegisterAtEventAsync(Event @event, CancellationToken cancellationToken = default)
