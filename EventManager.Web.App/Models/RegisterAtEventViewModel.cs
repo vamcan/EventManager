@@ -6,6 +6,6 @@ namespace EventManager.Web.App.Models
     public class RegisterAtEventViewModel
     {
         public RegisterAtEventCommand RegisterAtEventCommand { get; set; }
-        public GetEventResult GetEventResult { get; set; }
+        public GetEventResult? GetEventResult { get; set; }
     }
 }

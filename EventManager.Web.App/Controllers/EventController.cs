@@ -53,7 +53,7 @@ namespace EventManager.Web.App.Controllers
         {
             if (!ModelState.IsValid)
             { // re-render the view when validation failed.
-                return (RedirectToAction("Error"));
+               // return (RedirectToAction("Error"));
             }
             var request = new AddEventCommand()
             {

@@ -41,14 +41,14 @@ namespace EventManager.Web.App.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterAtEventCommand request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Register(RegisterAtEventViewModel request, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
-            { // re-render the view when validation failed.
+            {
                 return (RedirectToAction("Error"));
             }
 
-            var result = await _mediator.Send(request, cancellationToken);
+            var result = await _mediator.Send(request.RegisterAtEventCommand, cancellationToken);
             if (result.IsSuccess)
             {
                 return RedirectToAction("Index");
