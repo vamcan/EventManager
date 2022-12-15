@@ -16,8 +16,8 @@ namespace EventManager.Web.App.Startup
 
             #region Services
 
-
-           services.AddIdentityInfrastructureServices(configuration);
+            services.AddSession();
+            services.AddIdentityInfrastructureServices(configuration);
             
 
             services.AddEventDbContext(configuration.GetConnectionString("Default"));

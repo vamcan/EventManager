@@ -13,6 +13,17 @@
             }
 
             app.UseHttpsRedirection();
+            app.UseSession();
+
+            app.Use(async (context, next) =>
+            {
+                var token = context.Session.GetString("Token");
+                if (!string.IsNullOrEmpty(token))
+                {
+                    context.Request.Headers.Add("Authorization", "Bearer " + token);
+                }
+                await next();
+            });
             app.UseStaticFiles();
 
             app.UseRouting();
