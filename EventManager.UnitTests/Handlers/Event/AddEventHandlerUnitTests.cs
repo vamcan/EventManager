@@ -38,7 +38,7 @@ namespace EventManager.UnitTests.Handlers.Event
 
             var request = new AddEventCommand
             {
-                UserId = userId,
+                UserName = user.UserName,
                 Name = @event.Name,
                 Description = @event.Description,
                 Location = @event.Location,
@@ -63,13 +63,13 @@ namespace EventManager.UnitTests.Handlers.Event
         [Fact]
         public async Task AddEventHandler_Should_Not_Add_Event_If_User_Does_Not_Exist()
         {
-            var userId =Guid.NewGuid();
-            _mockUserRepository.Setup(r => r.FindByIdAsync(userId,CancellationToken.None))
+            string userName = "InvalidUserName";
+            _mockUserRepository.Setup(r => r.FindByUserNameAsync(userName, CancellationToken.None))
                 .Returns(Task.FromResult<User>(null!)!);
 
             var command = new AddEventCommand()
             {
-                UserId = userId,
+                UserName = userName,
                 Name = "Test Event",
                 Description = "Test event description",
                 Location = "Test location",
@@ -101,7 +101,7 @@ namespace EventManager.UnitTests.Handlers.Event
 
             var command = new AddEventCommand()
             {
-                UserId = userId,
+                UserName = user.UserName,
                 Name = "Test Event",
                 Description = "Test event description",
                 Location = "Test location",
