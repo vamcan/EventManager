@@ -1,0 +1,51 @@
+﻿@using Microsoft.AspNetCore.Mvc.TagHelpers
+@model EventManager.Core.Application.Event.GetAllEvents.GetAllEventsResult
+
+@{
+    ViewData["Title"] = "All Events";
+}
+
+<h2>Events List</h2>
+
+
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Location
+        </th>
+        <th>
+            Start Time
+        </th>
+        <th>
+            End Time
+        </th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.GetEventResults)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Location)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EndTime)
+            </td>
+            <td>
+                <a asp-action="Register" asp-route-id="@item.Id">Register</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

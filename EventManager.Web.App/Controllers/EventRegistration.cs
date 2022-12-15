@@ -1,19 +1,19 @@
-﻿using EventManager.Core.Application.Event.GetAllEvents;
+﻿using Azure.Core;
+using EventManager.Core.Application.Event.GetAllEvents;
+using EventManager.Core.Application.Event.GetEvent;
 using EventManager.Web.App.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using EventManager.Core.Application.Event.GetEvent;
-using EventManager.Core.Application.Event.AddEvent;
+using EventManager.Core.Application.Event.RegisterAtEvent;
 
 namespace EventManager.Web.App.Controllers
 {
-    //[Authorize]
-    public class EventController : Controller
+    public class EventRegistration : Controller
     {
         private readonly IMediator _mediator;
-        // GET: EventController
-        public EventController(IMediator mediator)
+
+        public EventRegistration(IMediator mediator)
         {
             _mediator = mediator;
         }
@@ -29,41 +29,25 @@ namespace EventManager.Web.App.Controllers
             return (RedirectToAction("Error"));
         }
 
-        public async Task<IActionResult> Details(Guid id)
+        public async Task<IActionResult> Register(Guid id)
         {
             var query = new GetEventQuery() { EventId = id };
             var @event = await _mediator.Send(query);
             if (@event.IsSuccess)
             {
-                return View(@event.Result);
+                return View(new RegisterAtEventViewModel() { GetEventResult = @event.Result });
             }
             return (RedirectToAction("Error"));
         }
-
-        // GET: EventController/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: EventController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(CreateEventViewModel eventViewModel, CancellationToken cancellationToken)
+        public async Task<IActionResult> Register(RegisterAtEventCommand request, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
             { // re-render the view when validation failed.
                 return (RedirectToAction("Error"));
             }
-            var request = new AddEventCommand()
-            {
-                Name = eventViewModel.Name,
-                Description = eventViewModel.Description,
-                EndTime = eventViewModel.EndTime,
-                StartTime = eventViewModel.StartTime,
-                Location = eventViewModel.Location,
-                UserName = "reza"
-            };
+
             var result = await _mediator.Send(request, cancellationToken);
             if (result.IsSuccess)
             {
@@ -72,13 +56,10 @@ namespace EventManager.Web.App.Controllers
             return (RedirectToAction("Error"));
         }
 
-
-
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
-
     }
 }

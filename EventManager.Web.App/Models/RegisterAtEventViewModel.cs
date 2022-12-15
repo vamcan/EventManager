@@ -1,10 +1,11 @@
-﻿namespace EventManager.Web.App.Models
+﻿using EventManager.Core.Application.Event.GetEvent;
+using EventManager.Core.Application.Event.RegisterAtEvent;
+
+namespace EventManager.Web.App.Models
 {
     public class RegisterAtEventViewModel
     {
-        public Guid EventId { get; set; }
-        public string Name { get; set; }
-        public string PhoneNumber { get; set; }
-        public string Email { get; set; }
+        public RegisterAtEventCommand RegisterAtEventCommand { get; set; }
+        public GetEventResult GetEventResult { get; set; }
     }
 }
