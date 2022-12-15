@@ -4,6 +4,7 @@ using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using EventManager.Core.Application.Event.GetEvent;
 
 namespace EventManager.Web.App.Controllers
 {
@@ -28,10 +29,15 @@ namespace EventManager.Web.App.Controllers
             return (RedirectToAction("Error"));
         }
 
-        // GET: EventController/Details/5
-        public ActionResult Details(int id)
+        public async Task<IActionResult> Details(Guid id)
         {
-            return View();
+            var query = new GetEventQuery(){EventId = id};
+            var @event = await _mediator.Send(query);
+            if (@event.IsSuccess)
+            {
+                return View(@event.Result);
+            }
+            return (RedirectToAction("Error"));
         }
 
         // GET: EventController/Create
@@ -43,7 +49,7 @@ namespace EventManager.Web.App.Controllers
         // POST: EventController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        public ActionResult Create(CreateEventViewModel eventViewModel,CancellationToken cancellationToken)
         {
             try
             {
