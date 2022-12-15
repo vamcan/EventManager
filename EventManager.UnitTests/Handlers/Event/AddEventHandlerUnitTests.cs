@@ -23,9 +23,9 @@ namespace EventManager.UnitTests.Handlers.Event
         [Fact]
         public async Task TestAddEventHandler()
         {
-            var userId = Guid.NewGuid();
-            var user = User.CreateUser(userId, "test user", "TestUserName", "TestPass",Email.CreateIfNotEmpty("test@gmail.com"));
-            _mockUserRepository.Setup(repo => repo.FindByIdAsync(userId,CancellationToken.None))
+            var userName = "TestUserName";
+            var user = User.CreateUser(Guid.NewGuid(), "test user", "TestUserName", userName,Email.CreateIfNotEmpty("test@gmail.com"));
+            _mockUserRepository.Setup(repo => repo.FindByUserNameAsync(userName,CancellationToken.None))
                 .ReturnsAsync(user);
 
             var eventId = Guid.NewGuid();
@@ -51,7 +51,6 @@ namespace EventManager.UnitTests.Handlers.Event
 
             // Assert
             Assert.True(result.IsSuccess);
-            Assert.Equal(eventId, result.Result.Id);
             Assert.Equal(request.Name, result.Result.Name);
             Assert.Equal(request.Description, result.Result.Description);
             Assert.Equal(request.Location, result.Result.Location);
