@@ -59,8 +59,8 @@ namespace EventManager.Web.App.Controllers
             {
                 Name = eventViewModel.Name,
                 Description = eventViewModel.Description,
-                EndTime = eventViewModel.EndTime,
-                StartTime = eventViewModel.StartTime,
+                EndTime = DateTime.Parse(eventViewModel.EndTime),
+                StartTime =DateTime.Parse(eventViewModel.StartTime),
                 Location = eventViewModel.Location,
                 UserName = "reza"
             };
