@@ -35,13 +35,7 @@ namespace EventManager.Infrastructure.Sql.Repository
             return _dbContext.Events.OrderByDescending(c=>c.Created).ToListAsync(cancellationToken);
         }
 
-        public async Task<bool> RegisterAtEventAsync(Event @event, CancellationToken cancellationToken = default)
-        {
-            await _dbContext.Events.AddAsync(@event, cancellationToken);
-            var result = await _dbContext.SaveChangesAsync(cancellationToken);
-            return result > 0;
-        }
-
+    
         public async Task<Event?> GetEventByIdAsync(Guid id, CancellationToken cancellationToken = default)
         {
             return await _dbContext.Events.FirstOrDefaultAsync(c => c.Id.Equals(id), cancellationToken);
