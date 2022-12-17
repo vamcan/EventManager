@@ -1,7 +1,7 @@
 ﻿using System.Globalization;
 using EventManager.Core.Application.Event.GetEvent;
 
-namespace EventManager.Core.Application.Event.Mapper
+namespace EventManager.Core.Application.Mapper
 {
     public class EventMapper
     {
