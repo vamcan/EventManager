@@ -2,6 +2,7 @@
 {
     public class GetEventRegistrationsResult
     {
+        public string EventName { get; set; }
         public List<EventRegistrationDto> EventRegistrations { get; set; }
     }
 

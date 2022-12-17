@@ -28,6 +28,7 @@ namespace EventManager.Core.Application.Event.GetEventRegistrations
 
                 var result = new GetEventRegistrationsResult()
                 {
+                    EventName = @event.Name,
                     EventRegistrations = eventRegistrations.Select(RegistrationMapper.RegistrationToEventRegistrationDtoMapper).ToList(),
                 };
 
