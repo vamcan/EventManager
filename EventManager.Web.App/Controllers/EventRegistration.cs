@@ -49,9 +49,14 @@ namespace EventManager.Web.App.Controllers
             var result = await _mediator.Send(request.RegisterAtEventCommand, cancellationToken);
             if (result.IsSuccess)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("RegisterSucceed");
             }
             return (RedirectToAction("Error"));
+        }
+
+        public IActionResult RegisterSucceed()
+        {
+            return View();
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

@@ -24,6 +24,11 @@ namespace EventManager.Core.Application.Event.AddEvent
                 {
                     return OperationResult<AddEventResult>.NotFoundResult("User does not exist");
                 }
+
+                if (request.StartTime<request.EndTime)
+                {
+                    return OperationResult<AddEventResult>.FailureResult("The start time cannot be smaller than the end time ");
+                }
                 var @event = Domain.Entities.Event.Event.CreatEvent(Guid.NewGuid(), request.Name, request.Description,
                     request.Location, request.StartTime, request.EndTime, user);
                 var result = await _eventRepository.AddEventAsync(@event, cancellationToken);
