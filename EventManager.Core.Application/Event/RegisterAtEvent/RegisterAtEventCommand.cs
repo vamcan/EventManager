@@ -1,6 +1,4 @@
 ﻿using EventManager.Core.Application.Base.Common;
-using EventManager.Core.Application.Event.AddEvent;
-using EventManager.Core.Domain.ValueObjects;
 using MediatR;
 
 namespace EventManager.Core.Application.Event.RegisterAtEvent

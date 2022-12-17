@@ -33,20 +33,20 @@ namespace EventManager.Core.Domain.Entities.Event
             return model;
         }
 
-        private List<Registeration> _registerations= new List<Registeration>();
+        private List<Registeration> _registrations= new List<Registeration>();
 
         public IReadOnlyCollection<Registeration> Registrations
         {
             get
             {
-                return _registerations.AsReadOnly();
+                return _registrations.AsReadOnly();
 
             }
         }
 
         public  void RegisterAtEvent(Registeration registration)
         {
-            _registerations.Add(registration);
+            _registrations.Add(registration);
         }
 
    

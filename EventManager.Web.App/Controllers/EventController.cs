@@ -7,6 +7,7 @@ using EventManager.Core.Application.Event.GetEvent;
 using EventManager.Core.Application.Event.AddEvent;
 using Microsoft.AspNetCore.Authorization;
 using System.Security.Claims;
+using EventManager.Core.Application.Event.GetEventRegistrations;
 
 namespace EventManager.Web.App.Controllers
 {
@@ -34,6 +35,17 @@ namespace EventManager.Web.App.Controllers
         public async Task<IActionResult> Details(Guid id)
         {
             var query = new GetEventQuery() { EventId = id };
+            var @event = await _mediator.Send(query);
+            if (@event.IsSuccess)
+            {
+                return View(@event.Result);
+            }
+            return (RedirectToAction("Error"));
+        }
+
+        public async Task<IActionResult> EventRegistrations(Guid id)
+        {
+            var query = new EventRegistrationsQuery() { EventId = id };
             var @event = await _mediator.Send(query);
             if (@event.IsSuccess)
             {
