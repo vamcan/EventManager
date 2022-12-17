@@ -1,7 +1,7 @@
 ﻿using System.Text.Json.Serialization;
 using EventManager.Core.Application.ServiceConfiguration;
-using EventManager.Infrastructure.Auth;
 using EventManager.Infrastructure.Sql;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace EventManager.Web.App.Startup
 {
@@ -16,9 +16,25 @@ namespace EventManager.Web.App.Startup
 
             #region Services
 
-            services.AddSession();
-            services.AddIdentityInfrastructureServices(configuration);
-            
+
+
+            services.AddAuthentication(options =>
+                {
+                    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                })
+                .AddCookie("Cookies", options =>
+                {
+                    options.Cookie.Name = "auth_cookie";
+                    options.Cookie.HttpOnly = true;
+                    options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+                    options.LoginPath = "/Home/Index";
+                    options.AccessDeniedPath = "/Home/Index";
+                    options.LogoutPath = "/Home/Index";
+                    options.SlidingExpiration = true;
+                });
+
 
             services.AddEventDbContext(configuration.GetConnectionString("Default"));
             services.AddSqlInfrastructureServices();

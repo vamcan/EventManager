@@ -1,11 +1,9 @@
-﻿using Azure.Core;
-using EventManager.Core.Application.Event.GetAllEvents;
+﻿using EventManager.Core.Application.Event.GetAllEvents;
 using EventManager.Core.Application.Event.GetEvent;
 using EventManager.Web.App.Models;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using EventManager.Core.Application.Event.RegisterAtEvent;
 
 namespace EventManager.Web.App.Controllers
 {

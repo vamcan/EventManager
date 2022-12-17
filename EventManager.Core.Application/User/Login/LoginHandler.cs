@@ -1,5 +1,4 @@
-﻿using EventManager.Core.Application.Auth;
-using EventManager.Core.Application.Base.Common;
+﻿using EventManager.Core.Application.Base.Common;
 using EventManager.Core.Domain.Contracts.Repository;
 using EventManager.Core.Domain.ValueObjects;
 using MediatR;
@@ -10,13 +9,12 @@ namespace EventManager.Core.Application.User.Login
     {
 
         private readonly IUserRepository _userRepository;
-        private readonly ITokenService _tokenService;
 
 
-        public LoginHandler(IUserRepository userRepository, ITokenService tokenService)
+        public LoginHandler(IUserRepository userRepository)
         {
             _userRepository = userRepository;
-            _tokenService = tokenService;
+          
         }
 
         public async Task<OperationResult<LoginResult>> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -32,9 +30,7 @@ namespace EventManager.Core.Application.User.Login
                         // validate password
                         if (PasswordHash.CreateIfNotEmpty(request.Password).Value.Equals(user.HashedPassword))
                         {
-                            // generate token
-                            var token = await _tokenService.BuildTokenAsync(request);
-                            var loginResult = new LoginResult() { Token = token };
+                            var loginResult = new LoginResult() { UserName = user.UserName };
                             return OperationResult<LoginResult>.SuccessResult(loginResult);
                         }
                     }

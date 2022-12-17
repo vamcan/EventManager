@@ -1,5 +1,4 @@
-﻿using EventManager.Core.Application.Auth;
-using EventManager.Core.Application.Base.Common;
+﻿using EventManager.Core.Application.Base.Common;
 using EventManager.Core.Application.User.Login;
 using EventManager.Core.Domain.Contracts.Repository;
 using EventManager.Core.Domain.ValueObjects;

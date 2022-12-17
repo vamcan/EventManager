@@ -53,11 +53,6 @@ namespace EventManager.Infrastructure.Auth
                     options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
                     options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                }).AddJwtBearer(configureOptions =>
-                {
-                    configureOptions.ClaimsIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)];
-                    configureOptions.TokenValidationParameters = tokenValidationParameters;
-                    configureOptions.SaveToken = true;
                 })
                 .AddCookie("Cookies", options =>
                 {
@@ -72,7 +67,6 @@ namespace EventManager.Infrastructure.Auth
 
 
 
-            services.AddSingleton<ITokenService, JwtService>();
         }
     }
 }

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -20,7 +20,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\EventManager.Infrastructure.Sql\EventManager.Infrastructure.Sql.csproj" />
-    <ProjectReference Include="..\EventManager.Infrustructure.Identity\EventManager.Infrastructure.Auth.csproj" />
   </ItemGroup>
 
 </Project>

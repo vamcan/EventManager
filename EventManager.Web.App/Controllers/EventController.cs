@@ -6,6 +6,7 @@ using System.Diagnostics;
 using EventManager.Core.Application.Event.GetEvent;
 using EventManager.Core.Application.Event.AddEvent;
 using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace EventManager.Web.App.Controllers
 {
@@ -54,16 +55,16 @@ namespace EventManager.Web.App.Controllers
         {
             if (!ModelState.IsValid)
             { // re-render the view when validation failed.
-               // return (RedirectToAction("Error"));
+              // return (RedirectToAction("Error"));
             }
             var request = new AddEventCommand()
             {
                 Name = eventViewModel.Name,
                 Description = eventViewModel.Description,
                 EndTime = DateTime.Parse(eventViewModel.EndTime),
-                StartTime =DateTime.Parse(eventViewModel.StartTime),
+                StartTime = DateTime.Parse(eventViewModel.StartTime),
                 Location = eventViewModel.Location,
-                UserName = "reza"
+                UserName = User.FindFirstValue(ClaimTypes.Name)
             };
             var result = await _mediator.Send(request, cancellationToken);
             if (result.IsSuccess)

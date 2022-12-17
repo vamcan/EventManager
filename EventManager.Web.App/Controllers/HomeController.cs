@@ -42,13 +42,9 @@ namespace EventManager.Web.App.Controllers
             var result = await _mediator.Send(request, cancellationToken);
             if (result.IsSuccess)
             {
-                var jwtsecuritytoken = new JwtSecurityTokenHandler().ReadToken(result.Result.Token) as JwtSecurityToken;
-                var username = jwtsecuritytoken.Claims.FirstOrDefault(m => m.Type == ClaimTypes.Name).Value;
-
                 var claims = new Claim[]
                 {
-                    new Claim(ClaimTypes.Name, username),
-
+                    new Claim(ClaimTypes.Name, result.Result.UserName),
                 };
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
