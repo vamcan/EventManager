@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventManager.Infrastructure.Sql.Migrations
 {
     [DbContext(typeof(EventDbContext))]
-    [Migration("20221215142538_init")]
+    [Migration("20221217220912_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -65,7 +65,7 @@ namespace EventManager.Infrastructure.Sql.Migrations
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("EventManager.Core.Domain.Entities.Event.Registeration", b =>
+            modelBuilder.Entity("EventManager.Core.Domain.Entities.Event.Registration", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -100,11 +100,11 @@ namespace EventManager.Infrastructure.Sql.Migrations
                     b.Property<DateTime>("Created")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("FirstName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("HashedPassword")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -135,7 +135,7 @@ namespace EventManager.Infrastructure.Sql.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("EventManager.Core.Domain.Entities.Event.Registeration", b =>
+            modelBuilder.Entity("EventManager.Core.Domain.Entities.Event.Registration", b =>
                 {
                     b.HasOne("EventManager.Core.Domain.Entities.Event.Event", "Event")
                         .WithMany("Registrations")
@@ -145,7 +145,7 @@ namespace EventManager.Infrastructure.Sql.Migrations
 
                     b.OwnsOne("EventManager.Core.Domain.ValueObjects.Email", "Email", b1 =>
                         {
-                            b1.Property<Guid>("RegisterationId")
+                            b1.Property<Guid>("RegistrationId")
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Value")
@@ -153,17 +153,17 @@ namespace EventManager.Infrastructure.Sql.Migrations
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("Email");
 
-                            b1.HasKey("RegisterationId");
+                            b1.HasKey("RegistrationId");
 
                             b1.ToTable("Registrations");
 
                             b1.WithOwner()
-                                .HasForeignKey("RegisterationId");
+                                .HasForeignKey("RegistrationId");
                         });
 
                     b.OwnsOne("EventManager.Core.Domain.ValueObjects.PhoneNumber", "PhoneNumber", b1 =>
                         {
-                            b1.Property<Guid>("RegisterationId")
+                            b1.Property<Guid>("RegistrationId")
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Value")
@@ -171,12 +171,12 @@ namespace EventManager.Infrastructure.Sql.Migrations
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("PhoneNumber");
 
-                            b1.HasKey("RegisterationId");
+                            b1.HasKey("RegistrationId");
 
                             b1.ToTable("Registrations");
 
                             b1.WithOwner()
-                                .HasForeignKey("RegisterationId");
+                                .HasForeignKey("RegistrationId");
                         });
 
                     b.Navigation("Email")
@@ -190,7 +190,7 @@ namespace EventManager.Infrastructure.Sql.Migrations
 
             modelBuilder.Entity("EventManager.Core.Domain.Entities.User.User", b =>
                 {
-                    b.OwnsOne("EventManager.Core.Domain.ValueObjects.PasswordHash", "PasswordHash", b1 =>
+                    b.OwnsOne("EventManager.Core.Domain.ValueObjects.Email", "Email", b1 =>
                         {
                             b1.Property<Guid>("UserId")
                                 .HasColumnType("uniqueidentifier");
@@ -198,7 +198,7 @@ namespace EventManager.Infrastructure.Sql.Migrations
                             b1.Property<string>("Value")
                                 .IsRequired()
                                 .HasColumnType("nvarchar(max)")
-                                .HasColumnName("PasswordHash");
+                                .HasColumnName("Email");
 
                             b1.HasKey("UserId");
 
@@ -208,7 +208,7 @@ namespace EventManager.Infrastructure.Sql.Migrations
                                 .HasForeignKey("UserId");
                         });
 
-                    b.Navigation("PasswordHash")
+                    b.Navigation("Email")
                         .IsRequired();
                 });
 

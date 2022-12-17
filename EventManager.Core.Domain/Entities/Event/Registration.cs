@@ -3,9 +3,9 @@ using EventManager.Core.Domain.ValueObjects;
 
 namespace EventManager.Core.Domain.Entities.Event
 {
-    public class Registeration:IBaseEntity
+    public class Registration:IBaseEntity
     {
-        private Registeration()
+        private Registration()
         {
 
         }
@@ -16,9 +16,9 @@ namespace EventManager.Core.Domain.Entities.Event
         public Event Event { get; private init; }
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
-        public static Registeration CreateRegisteration(Guid id, string name, PhoneNumber phoneNumber, Event @event, Email email)
+        public static Registration CreateRegistration(Guid id, string name, PhoneNumber phoneNumber, Event @event, Email email)
         {
-            var model = new Registeration()
+            var model = new Registration()
             {
                 Id = id,
                 Name = name,

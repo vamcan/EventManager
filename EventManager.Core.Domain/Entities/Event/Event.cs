@@ -33,9 +33,9 @@ namespace EventManager.Core.Domain.Entities.Event
             return model;
         }
 
-        private List<Registeration> _registrations= new List<Registeration>();
+        private List<Registration> _registrations= new List<Registration>();
 
-        public IReadOnlyCollection<Registeration> Registrations
+        public IReadOnlyCollection<Registration> Registrations
         {
             get
             {
@@ -44,7 +44,7 @@ namespace EventManager.Core.Domain.Entities.Event
             }
         }
 
-        public  void RegisterAtEvent(Registeration registration)
+        public  void RegisterAtEvent(Registration registration)
         {
             _registrations.Add(registration);
         }

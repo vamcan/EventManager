@@ -35,7 +35,7 @@ namespace EventManager.Infrastructure.Sql.Repository
             return _dbContext.Events.OrderByDescending(c=>c.Created).ToListAsync(cancellationToken);
         }
 
-        public Task<List<Registeration>> GetEventRegistrationsAsync(Event @event, CancellationToken cancellationToken = default)
+        public Task<List<Registration>> GetEventRegistrationsAsync(Event @event, CancellationToken cancellationToken = default)
         {
             return _dbContext.Registrations.Where(c => c.Event.Id.Equals(@event.Id)).ToListAsync(cancellationToken);
         }

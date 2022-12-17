@@ -4,9 +4,9 @@ using EventManager.Core.Domain.Entities.Event;
 
 namespace EventManager.Infrastructure.Sql.Configs
 {
-    public class RegisterationConfiguration : IEntityTypeConfiguration<Registeration>
+    public class RegistrationConfiguration : IEntityTypeConfiguration<Registration>
     {
-        public void Configure(EntityTypeBuilder<Registeration> builder)
+        public void Configure(EntityTypeBuilder<Registration> builder)
         {
             builder.OwnsOne(e => e.Email, n =>
                 n.Property(p => p.Value).HasColumnName("Email"));

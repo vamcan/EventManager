@@ -27,9 +27,9 @@ namespace EventManager.Core.Application.Event.RegisterAtEvent
                     return OperationResult<RegisterAtEventResult>.NotFoundResult("Event does not exist");
 
                 }
-                var registeration = Registeration.CreateRegisteration(Guid.NewGuid(), request.Name, PhoneNumber.CreateIfNotEmpty(request.PhoneNumber),
+                var registration = Registration.CreateRegistration(Guid.NewGuid(), request.Name, PhoneNumber.CreateIfNotEmpty(request.PhoneNumber),
                     currentEvent, Email.CreateIfNotEmpty(request.Email));
-                currentEvent.RegisterAtEvent(registeration);
+                currentEvent.RegisterAtEvent(registration);
                 await _eventRepository.UpdateEventAsync(currentEvent, cancellationToken);
 
                 var result = new RegisterAtEventResult()

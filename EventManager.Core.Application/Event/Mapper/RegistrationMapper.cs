@@ -6,7 +6,7 @@ namespace EventManager.Core.Application.Event.Mapper
 {
     public class RegistrationMapper
     {
-        public static EventRegistrationDto RegistrationToEventRegistrationDtoMapper(Registeration item)
+        public static EventRegistrationDto RegistrationToEventRegistrationDtoMapper(Registration item)
         {
             return new EventRegistrationDto()
             {

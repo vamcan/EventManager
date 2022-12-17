@@ -18,13 +18,13 @@ namespace EventManager.Infrastructure.Sql.Common
 
 
         public DbSet<Event> Events { get; set; }
-        public DbSet<Registeration> Registrations { get; set; }
+        public DbSet<Registration> Registrations { get; set; }
         public DbSet<User> Users { get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new RegisterationConfiguration());
+            modelBuilder.ApplyConfiguration(new RegistrationConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             base.OnModelCreating(modelBuilder);
         }

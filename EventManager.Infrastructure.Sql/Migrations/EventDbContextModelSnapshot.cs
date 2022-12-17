@@ -62,7 +62,7 @@ namespace EventManager.Infrastructure.Sql.Migrations
                     b.ToTable("Events");
                 });
 
-            modelBuilder.Entity("EventManager.Core.Domain.Entities.Event.Registeration", b =>
+            modelBuilder.Entity("EventManager.Core.Domain.Entities.Event.Registration", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -132,7 +132,7 @@ namespace EventManager.Infrastructure.Sql.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("EventManager.Core.Domain.Entities.Event.Registeration", b =>
+            modelBuilder.Entity("EventManager.Core.Domain.Entities.Event.Registration", b =>
                 {
                     b.HasOne("EventManager.Core.Domain.Entities.Event.Event", "Event")
                         .WithMany("Registrations")
@@ -142,7 +142,7 @@ namespace EventManager.Infrastructure.Sql.Migrations
 
                     b.OwnsOne("EventManager.Core.Domain.ValueObjects.Email", "Email", b1 =>
                         {
-                            b1.Property<Guid>("RegisterationId")
+                            b1.Property<Guid>("RegistrationId")
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Value")
@@ -150,17 +150,17 @@ namespace EventManager.Infrastructure.Sql.Migrations
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("Email");
 
-                            b1.HasKey("RegisterationId");
+                            b1.HasKey("RegistrationId");
 
                             b1.ToTable("Registrations");
 
                             b1.WithOwner()
-                                .HasForeignKey("RegisterationId");
+                                .HasForeignKey("RegistrationId");
                         });
 
                     b.OwnsOne("EventManager.Core.Domain.ValueObjects.PhoneNumber", "PhoneNumber", b1 =>
                         {
-                            b1.Property<Guid>("RegisterationId")
+                            b1.Property<Guid>("RegistrationId")
                                 .HasColumnType("uniqueidentifier");
 
                             b1.Property<string>("Value")
@@ -168,12 +168,12 @@ namespace EventManager.Infrastructure.Sql.Migrations
                                 .HasColumnType("nvarchar(max)")
                                 .HasColumnName("PhoneNumber");
 
-                            b1.HasKey("RegisterationId");
+                            b1.HasKey("RegistrationId");
 
                             b1.ToTable("Registrations");
 
                             b1.WithOwner()
-                                .HasForeignKey("RegisterationId");
+                                .HasForeignKey("RegistrationId");
                         });
 
                     b.Navigation("Email")
