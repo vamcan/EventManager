@@ -57,7 +57,11 @@ namespace EventManager.Web.App.Controllers
             }
             return (RedirectToAction("Error"));
         }
-
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
 
         public IActionResult Privacy()
         {

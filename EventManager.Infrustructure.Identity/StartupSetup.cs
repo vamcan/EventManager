@@ -65,7 +65,8 @@ namespace EventManager.Infrastructure.Auth
                     options.Cookie.HttpOnly = true;
                     options.ExpireTimeSpan = TimeSpan.FromMinutes(60);
                     options.LoginPath = "/Home/Login";
-                    options.AccessDeniedPath = "/Account/Forbidden";
+                    options.AccessDeniedPath = "/Home/Index";
+                    options.LogoutPath = "/Home/Index";
                     options.SlidingExpiration = true;
                 });
 
