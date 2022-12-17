@@ -58,23 +58,5 @@ namespace EventManager.UnitTests.ValueObjects
             // Assert
             Assert.False(areEqual);
         }
-        [Fact]
-        public void ObjectGetHashCode_ReturnsSameHashCode_ForEqualPasswordHashes()
-        {
-            // Arrange
-            string password = "password123";
-            PasswordHash passwordHash1 = new PasswordHash(password);
-            PasswordHash passwordHash2 = new PasswordHash(password);
-
-            // Act
-            int hashCode1 = passwordHash1.ObjectGetHashCode();
-            int hashCode2 = passwordHash2.ObjectGetHashCode();
-
-            // Assert
-            Assert.Equal(hashCode1, hashCode2);
-        }
-
-    
-
     }
 }

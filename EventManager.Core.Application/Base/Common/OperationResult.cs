@@ -1,7 +1,5 @@
 ﻿namespace EventManager.Core.Application.Base.Common
 {
-   
-
     public class OperationResult<TResult>
     {
         public TResult Result { get; private set; }
