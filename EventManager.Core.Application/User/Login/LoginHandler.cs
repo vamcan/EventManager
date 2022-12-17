@@ -10,13 +10,13 @@ namespace EventManager.Core.Application.User.Login
     {
 
         private readonly IUserRepository _userRepository;
-        private readonly ITokenFactory _tokenFactory;
+        private readonly ITokenService _tokenService;
 
 
-        public LoginHandler(IUserRepository userRepository, ITokenFactory tokenFactory)
+        public LoginHandler(IUserRepository userRepository, ITokenService tokenService)
         {
             _userRepository = userRepository;
-            _tokenFactory = tokenFactory;
+            _tokenService = tokenService;
         }
 
         public async Task<OperationResult<LoginResult>> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -33,7 +33,7 @@ namespace EventManager.Core.Application.User.Login
                         if (PasswordHash.CreateIfNotEmpty(request.Password).Value.Equals(user.HashedPassword))
                         {
                             // generate token
-                            var token = await _tokenFactory.GenerateEncodedToken(user.Id, user.UserName);
+                            var token = await _tokenService.BuildTokenAsync(request);
                             var loginResult = new LoginResult() { Token = token };
                             return OperationResult<LoginResult>.SuccessResult(loginResult);
                         }

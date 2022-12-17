@@ -1,5 +1,4 @@
-﻿using EventManager.Core.Application.Auth.Dto;
-
+﻿
 namespace EventManager.Core.Application.User.AddUser
 {
     public class AddUserResult

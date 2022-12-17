@@ -1,10 +1,15 @@
 ﻿using EventManager.Core.Application.User.Login;
 using EventManager.Web.App.Models;
 using MediatR;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using System.IdentityModel.Tokens.Jwt;
 using System.Net;
+using System.Security.Claims;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace EventManager.Web.App.Controllers
 {
@@ -37,7 +42,17 @@ namespace EventManager.Web.App.Controllers
             var result = await _mediator.Send(request, cancellationToken);
             if (result.IsSuccess)
             {
-                HttpContext.Session.SetString("Token", result.Result.Token.AuthToken);
+                var jwtsecuritytoken = new JwtSecurityTokenHandler().ReadToken(result.Result.Token) as JwtSecurityToken;
+                var username = jwtsecuritytoken.Claims.FirstOrDefault(m => m.Type == ClaimTypes.Name).Value;
+
+                var claims = new Claim[]
+                {
+                    new Claim(ClaimTypes.Name, username),
+
+                };
+                var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(claimsIdentity));
+
                 return RedirectToAction("Index", "Event");
             }
             return (RedirectToAction("Error"));

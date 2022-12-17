@@ -5,10 +5,11 @@ using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using EventManager.Core.Application.Event.GetEvent;
 using EventManager.Core.Application.Event.AddEvent;
+using Microsoft.AspNetCore.Authorization;
 
 namespace EventManager.Web.App.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class EventController : Controller
     {
         private readonly IMediator _mediator;
