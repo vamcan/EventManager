@@ -27,7 +27,7 @@ namespace EventManager.Core.Application.Event.AddEvent
 
                 if (request.StartTime>request.EndTime)
                 {
-                    return OperationResult<AddEventResult>.FailureResult("The end time cannot be smaller than the start time ");
+                    return OperationResult<AddEventResult>.FailureResult("The end time cannot be smaller than the start time");
                 }
                 var @event = Domain.Entities.Event.Event.CreatEvent(Guid.NewGuid(), request.Name, request.Description,
                     request.Location, request.StartTime, request.EndTime, user);

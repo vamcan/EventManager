@@ -85,12 +85,38 @@ namespace EventManager.UnitTests.Handlers.Event
         }
 
         [Fact]
+        public async Task AddEventHandler_Should_Not_Add_Event_If_EndTime_Is_Smaller_Than_StartTime()
+        {
+            string userName = "TestUserName";
+            var user = User.CreateUser(Guid.NewGuid(), "test user", "Test Family", userName, Email.CreateIfNotEmpty("test@test.com"));
+            _mockUserRepository.Setup(repo => repo.FindByUserNameAsync(userName, CancellationToken.None))
+                .ReturnsAsync(user);
+
+            var command = new AddEventCommand()
+            {
+                UserName = user.UserName,
+                Name = "Test Event",
+                Description = "Test event description",
+                Location = "Test location",
+                StartTime = DateTime.Now.AddDays(1),
+                EndTime = DateTime.Now
+            };
+
+            // Act
+            var result = await _addEventHandler.Handle(command, CancellationToken.None);
+
+            // Assert
+            Assert.False(result.IsSuccess);
+            Assert.Equal("The end time cannot be smaller than the start time", result.ErrorMessage);
+        }
+
+        [Fact]
         public async Task AddEventHandler_Should_Not_Add_Event_If_IEventRepository_Throws_An_Exception()
         {
 
-            var userId = Guid.NewGuid();
-            var user = User.CreateUser(userId, "test user", "TestUserName", "TestPass",Email.CreateIfNotEmpty("test@test.com"));
-            _mockUserRepository.Setup(repo => repo.FindByIdAsync(userId,CancellationToken.None))
+            string userName = "TestUserName";
+            var user = User.CreateUser(Guid.NewGuid(), "test user","Test Family", userName, Email.CreateIfNotEmpty("test@test.com"));
+            _mockUserRepository.Setup(repo => repo.FindByUserNameAsync(userName, CancellationToken.None))
                 .ReturnsAsync(user);
 
             _mockEventRepository
@@ -100,7 +126,7 @@ namespace EventManager.UnitTests.Handlers.Event
 
             var command = new AddEventCommand()
             {
-                UserName = user.UserName,
+                UserName = userName,
                 Name = "Test Event",
                 Description = "Test event description",
                 Location = "Test location",
