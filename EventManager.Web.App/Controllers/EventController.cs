@@ -54,8 +54,9 @@ namespace EventManager.Web.App.Controllers
         public async Task<IActionResult> Create(CreateEventViewModel eventViewModel, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
-            { // re-render the view when validation failed.
-              // return (RedirectToAction("Error"));
+            { 
+              ModelState.AddModelError("ModelIsNotValid", "Model Is Not Valid");
+              return View();
             }
             var request = new AddEventCommand()
             {
@@ -71,7 +72,11 @@ namespace EventManager.Web.App.Controllers
             {
                 return RedirectToAction("Index");
             }
-            return (RedirectToAction("Error"));
+            else
+            {
+                ModelState.AddModelError("Error", result.ErrorMessage);
+                return View();
+            }
         }
 
 

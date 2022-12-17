@@ -29,6 +29,10 @@ namespace EventManager.Web.App.Controllers
 
         public async Task<IActionResult> Register(Guid id)
         {
+            if (id==Guid.Empty)
+            {
+                return RedirectToAction("Error");
+            }
             var query = new GetEventQuery() { EventId = id };
             var @event = await _mediator.Send(query);
             if (@event.IsSuccess)
@@ -43,7 +47,9 @@ namespace EventManager.Web.App.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return (RedirectToAction("Error"));
+                ModelState.AddModelError("ModelIsNotValid", "Model Is Not Valid");
+
+                return View();
             }
 
             var result = await _mediator.Send(request.RegisterAtEventCommand, cancellationToken);
@@ -51,7 +57,11 @@ namespace EventManager.Web.App.Controllers
             {
                 return RedirectToAction("RegisterSucceed");
             }
-            return (RedirectToAction("Error"));
+            else
+            {
+                ModelState.AddModelError("Error", result.ErrorMessage);
+                return View(request);
+            };
         }
 
         public IActionResult RegisterSucceed()

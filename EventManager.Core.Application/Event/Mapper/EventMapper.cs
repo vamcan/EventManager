@@ -1,4 +1,5 @@
-﻿using EventManager.Core.Application.Event.GetEvent;
+﻿using System.Globalization;
+using EventManager.Core.Application.Event.GetEvent;
 
 namespace EventManager.Core.Application.Event.Mapper
 {
@@ -9,11 +10,11 @@ namespace EventManager.Core.Application.Event.Mapper
             return new GetEventResult()
             {
                 Description = item.Description,
-                EndTime = item.EndTime,
+                EndTime = item.EndTime.ToString(CultureInfo.InvariantCulture),
                 Id = item.Id,
                 Location = item.Location,
                 Name = item.Name,
-                StartTime = item.StartTime
+                StartTime = item.StartTime.ToString(CultureInfo.InvariantCulture)
             };
         }
     }

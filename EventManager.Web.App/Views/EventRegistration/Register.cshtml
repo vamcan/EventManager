@@ -3,71 +3,76 @@
     ViewBag.Title = "Event Registration:";
 }
 <h2>Event Details</h2>
-<br/>
-<div class="row">
-    <div class="col-md-4">
-        <div class="form-group">
-            <label asp-for="GetEventResult.Name" class="control-label"></label>
-            <br/>
-            @Model.GetEventResult.Name
-        </div>
-        <hr />
-        <div class="form-group">
-            <label asp-for="GetEventResult.Location" class="control-label"></label>
-            <br/>
-            @Model.GetEventResult.Location
-        </div>
-        <hr />
-        <div class="form-group">
-            <label asp-for="GetEventResult.StartTime" class="control-label"></label>
-            <br/>
-            @Model.GetEventResult.StartTime
-        </div>
-        <hr />
-        <div class="form-group">
-            <label asp-for="GetEventResult.EndTime" class="control-label"></label>
-            <br/>
-            @Model.GetEventResult.EndTime
-        </div>
-        <hr />
-        <div class="form-group">
-            <label asp-for="GetEventResult.Description" class="control-label"></label>
-            <br/>
-            @Model.GetEventResult.Description
+<br />
+<form asp-action="Register">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label asp-for="GetEventResult.Name" class="control-label"></label>
+                <br />
+                <input readonly="readonly"  asp-for="GetEventResult.Name" value="@Model.GetEventResult.Name" class="form-control" />
+            </div>
+            <hr />
+            <div class="form-group">
+                <label asp-for="GetEventResult.Location" class="control-label"></label>
+                <br />
+              
+                <input readonly="readonly" asp-for="GetEventResult.Location" value="@Model.GetEventResult.Location" class="form-control" />
+            </div>
+            <hr />
+            <div class="form-group">
+                <label asp-for="GetEventResult.StartTime" class="control-label"></label>
+                <br />
+
+                <input readonly="readonly" asp-for="GetEventResult.StartTime" value="@Model.GetEventResult.StartTime" class="form-control" />
+            </div>
+            <hr />
+            <div class="form-group">
+                <label asp-for="GetEventResult.EndTime" class="control-label"></label>
+                <br />
+
+                <input readonly="readonly" asp-for="GetEventResult.EndTime" value="@Model.GetEventResult.EndTime" class="form-control" />
+            </div>
+            <hr />
+            <div class="form-group">
+                <label asp-for="GetEventResult.Description" class="control-label"></label>
+               
+                <br />
+                <input readonly="readonly" asp-for="GetEventResult.Description" value="@Model.GetEventResult.Description" class="form-control" />
+            </div>
         </div>
     </div>
-</div>
-<hr/>
-<hr/>
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Register">
-            <input type="hidden" asp-for="RegisterAtEventCommand.EventId" value="@Model.GetEventResult.Id" />
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+    <hr />
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+
+            <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="RegisterAtEventCommand.Name" class="control-label"></label>
                 <input asp-for="RegisterAtEventCommand.Name" class="form-control" />
-                <span asp-validation-for="RegisterAtEventCommand.Name" class="text-danger"></span>
+
             </div>
             <div class="form-group">
                 <label asp-for="RegisterAtEventCommand.PhoneNumber" class="control-label"></label>
                 <input asp-for="RegisterAtEventCommand.PhoneNumber" class="form-control" />
-                <span asp-validation-for="RegisterAtEventCommand.PhoneNumber" class="text-danger"></span>
+
             </div>
             <div class="form-group">
                 <label asp-for="RegisterAtEventCommand.Email" class="control-label"></label>
                 <input asp-for="RegisterAtEventCommand.Email" class="form-control" />
-                <span asp-validation-for="RegisterAtEventCommand.Email" class="text-danger"></span>
-            </div>
-            <br/>
-            <br/>
-            <div class="form-group">
-                <input type="submit" value="Register" class="btn btn-primary"/>
-            </div>
-        </form>
-    </div>
-</div>
 
+            </div>
+            <br />
+            <br />
+            <div class="form-group">
+                <input type="submit" value="Register" class="btn btn-primary" />
+            </div>
+            <input asp-for="RegisterAtEventCommand.EventId" value="@Model.GetEventResult.Id" type="hidden" />
+            <input asp-for="GetEventResult.Id" value="@Model.GetEventResult.Id" type="hidden" />
+        </div>
+    </div>
+</form>
 @section Scripts {
     @{
         await Html.RenderPartialAsync("_ValidationScriptsPartial");
