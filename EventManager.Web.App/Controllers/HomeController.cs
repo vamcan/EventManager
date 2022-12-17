@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
+using EventManager.Core.Application.User.AddUser;
 
 namespace EventManager.Web.App.Controllers
 {
@@ -20,7 +21,7 @@ namespace EventManager.Web.App.Controllers
             _mediator = mediator;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             return View();
         }

@@ -1,8 +1,7 @@
 ﻿using EventManager.Core.Application.Base.Common;
-using EventManager.Core.Application.User.AddUser;
 using MediatR;
 
-namespace EventManager.Core.Application.User.Login
+namespace EventManager.Core.Application.User.AddUser
 {
     public class AddUserCommand : IRequest<OperationResult<AddUserResult>>
     {
