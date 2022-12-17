@@ -3,7 +3,6 @@ using System;
 using EventManager.Infrastructure.Sql.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
@@ -12,51 +11,47 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace EventManager.Infrastructure.Sql.Migrations
 {
     [DbContext(typeof(EventDbContext))]
-    [Migration("20221217220912_init")]
+    [Migration("20221217224301_init")]
     partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder
-                .HasAnnotation("ProductVersion", "7.0.1")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
-
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            modelBuilder.HasAnnotation("ProductVersion", "7.0.1");
 
             modelBuilder.Entity("EventManager.Core.Domain.Entities.Event.Event", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Description")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("EndTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Location")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Modified")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("StartTime")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -69,20 +64,20 @@ namespace EventManager.Infrastructure.Sql.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<Guid>("EventId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Modified")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -95,29 +90,29 @@ namespace EventManager.Infrastructure.Sql.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Created")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("FirstName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("HashedPassword")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("LastName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("Modified")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("TEXT");
 
                     b.Property<string>("UserName")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("TEXT");
 
                     b.HasKey("Id");
 
@@ -146,11 +141,11 @@ namespace EventManager.Infrastructure.Sql.Migrations
                     b.OwnsOne("EventManager.Core.Domain.ValueObjects.Email", "Email", b1 =>
                         {
                             b1.Property<Guid>("RegistrationId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("TEXT");
 
                             b1.Property<string>("Value")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("Email");
 
                             b1.HasKey("RegistrationId");
@@ -164,11 +159,11 @@ namespace EventManager.Infrastructure.Sql.Migrations
                     b.OwnsOne("EventManager.Core.Domain.ValueObjects.PhoneNumber", "PhoneNumber", b1 =>
                         {
                             b1.Property<Guid>("RegistrationId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("TEXT");
 
                             b1.Property<string>("Value")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("PhoneNumber");
 
                             b1.HasKey("RegistrationId");
@@ -193,11 +188,11 @@ namespace EventManager.Infrastructure.Sql.Migrations
                     b.OwnsOne("EventManager.Core.Domain.ValueObjects.Email", "Email", b1 =>
                         {
                             b1.Property<Guid>("UserId")
-                                .HasColumnType("uniqueidentifier");
+                                .HasColumnType("TEXT");
 
                             b1.Property<string>("Value")
                                 .IsRequired()
-                                .HasColumnType("nvarchar(max)")
+                                .HasColumnType("TEXT")
                                 .HasColumnName("Email");
 
                             b1.HasKey("UserId");

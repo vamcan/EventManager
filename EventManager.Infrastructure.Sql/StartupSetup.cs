@@ -10,7 +10,7 @@ namespace EventManager.Infrastructure.Sql
     {
         public static void AddEventDbContext(this IServiceCollection services, string? connectionString) =>
             services.AddDbContext<EventDbContext>(options =>
-                options.UseSqlServer(connectionString)); // will be created in web project root
+                options.UseSqlite(connectionString)); // will be created in web project root
 
         public static void AddSqlInfrastructureServices(this IServiceCollection services)
         {

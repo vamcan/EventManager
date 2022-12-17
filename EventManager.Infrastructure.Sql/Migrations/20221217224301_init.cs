@@ -15,14 +15,14 @@ namespace EventManager.Infrastructure.Sql.Migrations
                 name: "Users",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    HashedPassword = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Modified = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    FirstName = table.Column<string>(type: "TEXT", nullable: false),
+                    LastName = table.Column<string>(type: "TEXT", nullable: false),
+                    UserName = table.Column<string>(type: "TEXT", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    HashedPassword = table.Column<string>(type: "TEXT", nullable: false),
+                    Created = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Modified = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -33,15 +33,15 @@ namespace EventManager.Infrastructure.Sql.Migrations
                 name: "Events",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    StartTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    EndTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Modified = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    Description = table.Column<string>(type: "TEXT", nullable: false),
+                    Location = table.Column<string>(type: "TEXT", nullable: false),
+                    StartTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    EndTime = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    UserId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Created = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Modified = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,13 +58,13 @@ namespace EventManager.Infrastructure.Sql.Migrations
                 name: "Registrations",
                 columns: table => new
                 {
-                    Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    EventId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Created = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Modified = table.Column<DateTime>(type: "datetime2", nullable: false)
+                    Id = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Name = table.Column<string>(type: "TEXT", nullable: false),
+                    PhoneNumber = table.Column<string>(type: "TEXT", nullable: false),
+                    Email = table.Column<string>(type: "TEXT", nullable: false),
+                    EventId = table.Column<Guid>(type: "TEXT", nullable: false),
+                    Created = table.Column<DateTime>(type: "TEXT", nullable: false),
+                    Modified = table.Column<DateTime>(type: "TEXT", nullable: false)
                 },
                 constraints: table =>
                 {

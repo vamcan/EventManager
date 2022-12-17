@@ -3,13 +3,9 @@ using EventManager.Web.App.Models;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
-using System.IdentityModel.Tokens.Jwt;
-using System.Net;
 using System.Security.Claims;
-using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace EventManager.Web.App.Controllers
 {
