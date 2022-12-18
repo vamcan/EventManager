@@ -1,103 +1,93 @@
-﻿using EventManager.Core.Application.User.AddUser;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using EventManager.Core.Application.User.Login;
 using EventManager.Core.Domain.Contracts.Repository;
+using EventManager.Core.Domain.ValueObjects;
 using Moq;
 using Xunit;
 
 namespace EventManager.UnitTests.Handlers.User
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventManager.Core.Domain.ValueObjects;
-    using Moq;
-    using Xunit;
-
-    namespace MyProject.Tests
+    public class LoginHandlerTests
     {
-        public class AddUserHandlerTests
+        private readonly Mock<IUserRepository> _userRepositoryMock;
+        private readonly LoginHandler _loginHandler;
+
+        public LoginHandlerTests()
         {
-            private readonly Mock<IUserRepository> _userRepositoryMock;
-            private readonly AddUserHandler _addUserHandler;
-
-            public AddUserHandlerTests()
-            {
-                _userRepositoryMock = new Mock<IUserRepository>();
-                _addUserHandler = new AddUserHandler(_userRepositoryMock.Object);
-            }
-
-            [Fact]
-            public async Task Handle_ShouldReturnSuccessResult_WhenUserIsAddedSuccessfully()
-            {
-                // Arrange
-                var request = new AddUserCommand
-                {
-                    FirstName = "test FirstName",
-                    LastName = "test LastName",
-                    UserName = "TestUser",
-                    Email = "test@gmail.com",
-                    Password = "password123"
-                };
-
-                var expectedUser = EventManager.Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(),
-                    request.FirstName, request.LastName, request.UserName, Email.CreateIfNotEmpty(request.Email));
-                expectedUser.SetPasswordHash(request.Password);
-
-                _userRepositoryMock.Setup(r => r.AddUserAsync(It.IsAny<Core.Domain.Entities.User.User>(), 
-                    It.IsAny<CancellationToken>())).ReturnsAsync(true);
-
-                // Act
-                var result = await _addUserHandler.Handle(request, CancellationToken.None);
-
-                // Assert
-                Assert.True(result.IsSuccess);
-                Assert.IsType<AddUserResult>(result.Result);
-                Assert.Equal(expectedUser.Email, result.Result.User.Email);
-                Assert.Equal(expectedUser.HashedPassword, result.Result.User.HashedPassword);
-                Assert.Equal(expectedUser.UserName, result.Result.User.UserName);
-                Assert.Equal(expectedUser.FirstName, result.Result.User.FirstName);
-                Assert.Equal(expectedUser.LastName, result.Result.User.LastName);
-            }
-
-            [Fact]
-            public async Task Handle_ShouldReturnFailureResult_WhenUserFailsToRegister()
-            {
-                // Arrange
-                var request = new AddUserCommand
-                {
-                    FirstName = "test FirstName",
-                    LastName = "test LastName",
-                    UserName = "TestUser",
-                    Email = "test@gmail.com",
-                    Password = "password123"
-                };
-
-                var expectedUser = EventManager.Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(),
-                    request.FirstName, request.LastName, request.UserName, Email.CreateIfNotEmpty(request.Email));
-                expectedUser.SetPasswordHash(request.Password);
-
-                _userRepositoryMock.Setup(r => r.AddUserAsync(It.IsAny<Core.Domain.Entities.User.User>(), CancellationToken.None))
-                    .ReturnsAsync(false);
-
-                // Act
-                var result = await _addUserHandler.Handle(request, CancellationToken.None);
-
-                // Assert
-                Assert.False(result.IsSuccess);
-                Assert.Equal("User failed to register.", result.ErrorMessage);
-            }
-
-            [Fact]
-            public async Task Handle_ShouldReturnFailureResult_WhenExceptionIsThrown()
-            {
-                // Arrange
-                var request = new AddUserCommand
-                {
-                    FirstName = "John",
-                    LastName = "Doe",
-                    UserName = "johndoe",
-
-                };
-            }
+            _userRepositoryMock = new Mock<IUserRepository>();
+            _loginHandler = new LoginHandler(_userRepositoryMock.Object);
         }
+
+        [Fact]
+        public async Task Test_Handle_Success()
+        {
+            // Arrange
+            var request = new LoginCommand
+            {
+                UserName = "johndoe",
+                Password = "123456"
+            };
+            var user = Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(), "test User", "Test LastName"
+                , request.UserName, Email.CreateIfNotEmpty("test@gmail.com"));
+          user.SetPasswordHash(request.Password);
+            _userRepositoryMock.Setup(x => x.FindByUserNameAsync(request.UserName, CancellationToken.None))
+                .ReturnsAsync(user);
+
+            // Act
+            var result = await _loginHandler.Handle(request, CancellationToken.None);
+
+            // Assert
+            Assert.True(result.IsSuccess);
+            Assert.Equal(request.UserName, result.Result.UserName);
+        }
+
+        [Fact]
+        public async Task Test_Handle_InvalidCredentials()
+        {
+            // Arrange
+            var request = new LoginCommand
+            {
+                UserName = "johndoe",
+                Password = "123456"
+            };
+            var user = Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(), "test User", "Test LastName"
+                , request.UserName, Email.CreateIfNotEmpty("test@gmail.com"));
+            _userRepositoryMock.Setup(x => x.FindByUserNameAsync(request.UserName, CancellationToken.None))
+                .ReturnsAsync(user);
+
+            // Act
+            var result = await _loginHandler.Handle(request, CancellationToken.None);
+
+            // Assert
+            Assert.False(result.IsSuccess);
+            Assert.Equal("Invalid username or password.", result.ErrorMessage);
+        }
+
+        [Fact]
+        public async Task Test_Handle_UserNotFound()
+        {
+            // Arrange
+            var request = new LoginCommand
+            {
+                UserName = "johndoe",
+                Password = "123456"
+            };
+            _userRepositoryMock.Setup(x => x.FindByUserNameAsync(request.UserName, CancellationToken.None))
+                .ReturnsAsync((Core.Domain.Entities.User.User) null);
+
+            // Act
+            var result = await _loginHandler.Handle(request, CancellationToken.None);
+
+            // Assert
+            Assert.False(result.IsSuccess);
+            Assert.Equal("Invalid username or password.", result.ErrorMessage);
+        }
+
     }
 }
+
+
