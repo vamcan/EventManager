@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace EventManager.Infrastructure.Sql.Repository
 {
-    internal class EventRepository : IEventRepository
+    public class EventRepository : IEventRepository
     {
         private readonly EventDbContext _dbContext;
 

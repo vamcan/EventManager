@@ -15,7 +15,11 @@ namespace EventManager.Infrastructure.Sql.Common
         {
             _configuration = configuration;
         }
-
+        public EventDbContext(DbContextOptions<EventDbContext> option)
+            : base(option)
+        {
+         
+        }
 
         public DbSet<Event> Events { get; set; }
         public DbSet<Registration> Registrations { get; set; }

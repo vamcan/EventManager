@@ -6,19 +6,16 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
-using EventManager.Core.Application.User.AddUser;
 
 namespace EventManager.Web.App.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly IMediator _mediator;
 
-        public HomeController(ILogger<HomeController> logger, IMediator mediator)
+        public HomeController( IMediator mediator)
         {
-            _logger = logger;
-            _mediator = mediator;
+         _mediator = mediator;
         }
 
         public IActionResult Index()
