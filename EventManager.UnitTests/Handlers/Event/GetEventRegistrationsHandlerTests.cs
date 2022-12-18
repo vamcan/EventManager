@@ -1,7 +1,6 @@
 ﻿using EventManager.Core.Application.Event.GetEventRegistrations;
 using EventManager.Core.Domain.Contracts.Repository;
 using EventManager.Core.Domain.Entities.Event;
-using EventManager.Core.Domain.Entities.User;
 using EventManager.Core.Domain.ValueObjects;
 using Moq;
 using Xunit;

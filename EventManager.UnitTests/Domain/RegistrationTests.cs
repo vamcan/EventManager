@@ -1,5 +1,4 @@
-﻿using EventManager.Core.Application.Event.RegisterInEvent;
-using EventManager.Core.Domain.Base.Exceptions;
+﻿using EventManager.Core.Domain.Base.Exceptions;
 using EventManager.Core.Domain.Entities.Event;
 using EventManager.Core.Domain.ValueObjects;
 using Xunit;
@@ -18,7 +17,7 @@ namespace EventManager.UnitTests.Domain
             var email = new Email("test@example.com");
 
             var user = Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(), "test user", "Test Family", "TestUsername", Email.CreateIfNotEmpty("test@gmail.com"));
-            var @event = Core.Domain.Entities.Event.Event.CreateEvent(Guid.NewGuid(), "Test Event", "This is a test event", "Test location",
+            var @event = Event.CreateEvent(Guid.NewGuid(), "Test Event", "This is a test event", "Test location",
                 DateTime.Now, DateTime.Now.AddHours(1), user);
          
 
@@ -58,9 +57,8 @@ namespace EventManager.UnitTests.Domain
             var phoneNumber = new PhoneNumber("123-456-7890");
             var email = new Email("test@example.com");
             var user = Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(), "test user", "Test Family", "TestUsername", Email.CreateIfNotEmpty("test@gmail.com"));
-            var @event = Core.Domain.Entities.Event.Event.CreateEvent(Guid.NewGuid(), "Test Event", "This is a test event", "Test location",
+            var @event = Event.CreateEvent(Guid.NewGuid(), "Test Event", "This is a test event", "Test location",
                 DateTime.Now, DateTime.Now.AddHours(1), user);
-
 
             // Act and Assert
             var ex = Assert.Throws<DomainStateException>(() => Registration.CreateRegistration(id, name, phoneNumber, @event, email));

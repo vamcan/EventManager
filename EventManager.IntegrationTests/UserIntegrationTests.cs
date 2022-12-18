@@ -1,5 +1,4 @@
-﻿using EventManager.Core.Application.Event.AddEvent;
-using EventManager.Core.Application.User.AddUser;
+﻿using EventManager.Core.Application.User.AddUser;
 using EventManager.Core.Application.User.Login;
 using EventManager.Core.Domain.Entities.User;
 using EventManager.Core.Domain.ValueObjects;

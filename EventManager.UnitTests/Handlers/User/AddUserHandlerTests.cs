@@ -1,20 +1,12 @@
 ﻿using EventManager.Core.Application.User.AddUser;
 using EventManager.Core.Domain.Contracts.Repository;
+using EventManager.Core.Domain.ValueObjects;
 using Moq;
 using Xunit;
 
 namespace EventManager.UnitTests.Handlers.User
 {
-    using System;
-    using System.Threading;
-    using System.Threading.Tasks;
-    using EventManager.Core.Domain.ValueObjects;
-    using Moq;
-    using Xunit;
-
-    namespace MyProject.Tests
-    {
-        public class AddUserHandlerTests
+    public class AddUserHandlerTests
         {
             private readonly Mock<IUserRepository> _userRepositoryMock;
             private readonly AddUserHandler _addUserHandler;
@@ -38,7 +30,7 @@ namespace EventManager.UnitTests.Handlers.User
                     Password = "password123"
                 };
 
-                var expectedUser = EventManager.Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(),
+                var expectedUser = Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(),
                     request.FirstName, request.LastName, request.UserName, Email.CreateIfNotEmpty(request.Email));
                 expectedUser.SetPasswordHash(request.Password);
 
@@ -71,7 +63,7 @@ namespace EventManager.UnitTests.Handlers.User
                     Password = "password123"
                 };
 
-                var expectedUser = EventManager.Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(),
+                var expectedUser = Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(),
                     request.FirstName, request.LastName, request.UserName, Email.CreateIfNotEmpty(request.Email));
                 expectedUser.SetPasswordHash(request.Password);
 
@@ -86,5 +78,5 @@ namespace EventManager.UnitTests.Handlers.User
                 Assert.Equal("User failed to register.", result.ErrorMessage);
             }
         }
-    }
+    
 }

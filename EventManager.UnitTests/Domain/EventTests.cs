@@ -61,7 +61,7 @@ namespace EventManager.UnitTests.Domain
         {
             // Arrange
             var userName = "TestUserName";
-            var user = Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(), "test user", "TestUserName",
+            var user = User.CreateUser(Guid.NewGuid(), "test user", "TestUserName",
                 userName, Email.CreateIfNotEmpty("test@gmail.com"));
             var id = Guid.NewGuid();
             var name = "Test Event";
@@ -82,7 +82,7 @@ namespace EventManager.UnitTests.Domain
         {
             // Arrange
             var userName = "TestUserName";
-            var user = Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(), "test user", "TestUserName",
+            var user = User.CreateUser(Guid.NewGuid(), "test user", "TestUserName",
                 userName, Email.CreateIfNotEmpty("test@gmail.com"));
             var id = Guid.Empty;
             var name = "Test Event";
