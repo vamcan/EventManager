@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using System.Security.Claims;
+using EventManager.Core.Application.User.AddUser;
 
 namespace EventManager.Web.App.Controllers
 {
@@ -22,7 +23,7 @@ namespace EventManager.Web.App.Controllers
 
         public IActionResult Index()
         {
-            return View();
+           return View();
         }
 
         // POST: EventController/Create
