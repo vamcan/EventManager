@@ -1,4 +1,5 @@
 ﻿using EventManager.Core.Domain.Base;
+using EventManager.Core.Domain.Base.Exceptions;
 
 namespace EventManager.Core.Domain.Entities.Event
 {
@@ -17,8 +18,20 @@ namespace EventManager.Core.Domain.Entities.Event
         public User.User User { get; private init; }
         public DateTime Created { get; set; }
         public DateTime Modified { get; set; }
-        public static Event CreatEvent(Guid id, string name, string description, string location, DateTime startTime, DateTime endTime,User.User user)
+        public static Event CreateEvent(Guid id, string name, string description, string location, DateTime startTime, DateTime endTime,User.User user)
         {
+            if (user == null)
+            {
+                throw new DomainStateException("User does not exist");
+            }
+            if (startTime > endTime)
+            {
+                throw new DomainStateException("The end time cannot be smaller than the start time");
+            }
+            if (id == Guid.Empty)
+            {
+                throw new DomainStateException("Event Id is not valid");
+            }
             var model = new Event()
             {
                 Id = id,

@@ -21,7 +21,7 @@ namespace EventManager.Core.Domain.ValueObjects
 
         public string HashPassword(string password)
         {
-            var provider = MD5.Create();
+            var provider =SHA256.Create();
             string salt = "S0m3R@nd0mSalt";
             byte[] bytes = provider.ComputeHash(Encoding.ASCII.GetBytes(salt + password));
             string computedHash = BitConverter.ToString(bytes);

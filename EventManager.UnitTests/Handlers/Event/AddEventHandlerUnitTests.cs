@@ -28,7 +28,7 @@ namespace EventManager.UnitTests.Handlers.Event
                 .ReturnsAsync(user);
 
             var eventId = Guid.NewGuid();
-            var @event = Core.Domain.Entities.Event.Event.CreatEvent(eventId, "Test Event", "This is a test event", "Test location",
+            var @event = Core.Domain.Entities.Event.Event.CreateEvent(eventId, "Test Event", "This is a test event", "Test location",
                 DateTime.Now, DateTime.Now.AddHours(1), user);
             _mockEventRepository
                 .Setup(repo =>

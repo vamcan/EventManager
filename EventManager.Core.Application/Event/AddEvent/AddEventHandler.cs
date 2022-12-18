@@ -29,7 +29,7 @@ namespace EventManager.Core.Application.Event.AddEvent
                 {
                     return OperationResult<AddEventResult>.FailureResult("The end time cannot be smaller than the start time");
                 }
-                var @event = Domain.Entities.Event.Event.CreatEvent(Guid.NewGuid(), request.Name, request.Description,
+                var @event = Domain.Entities.Event.Event.CreateEvent(Guid.NewGuid(), request.Name, request.Description,
                     request.Location, request.StartTime, request.EndTime, user);
                 var result = await _eventRepository.AddEventAsync(@event, cancellationToken);
 

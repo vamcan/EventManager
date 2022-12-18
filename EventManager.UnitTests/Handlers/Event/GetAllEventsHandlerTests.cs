@@ -28,9 +28,9 @@ namespace EventManager.UnitTests.Handlers.Event
             _eventRepositoryMock.Setup(repo => repo.GetAllEventsAsync(It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new List<Core.Domain.Entities.Event.Event> {
                    
-                    Core.Domain.Entities.Event.Event.CreatEvent(Guid.NewGuid(), "Test Event", "This is a test event", "Test location",
+                    Core.Domain.Entities.Event.Event.CreateEvent(Guid.NewGuid(), "Test Event", "This is a test event", "Test location",
                     DateTime.Now, DateTime.Now.AddHours(1), user),
-                    Core.Domain.Entities.Event.Event.CreatEvent(Guid.NewGuid(), "Test Event2", "This is a test event2", "Test location2",
+                    Core.Domain.Entities.Event.Event.CreateEvent(Guid.NewGuid(), "Test Event2", "This is a test event2", "Test location2",
                         DateTime.Now, DateTime.Now.AddHours(1), user),
                 });
 

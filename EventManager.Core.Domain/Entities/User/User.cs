@@ -1,4 +1,5 @@
 ﻿using EventManager.Core.Domain.Base;
+using EventManager.Core.Domain.Base.Exceptions;
 using EventManager.Core.Domain.ValueObjects;
 
 namespace EventManager.Core.Domain.Entities.User
@@ -19,6 +20,14 @@ namespace EventManager.Core.Domain.Entities.User
 
         public static User CreateUser(Guid id, string firstName, string lastName, string userName, Email email)
         {
+            if (string.IsNullOrWhiteSpace(userName))
+            {
+                throw new DomainStateException("UserName can not be empty");
+            }
+            if (id == Guid.Empty)
+            {
+                throw new DomainStateException("User Id is not valid");
+            }
             var model = new User()
             {
                 Id = id,

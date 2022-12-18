@@ -30,7 +30,7 @@ namespace EventManager.UnitTests.Handlers.Event
                 Email = "reza.ghasemi@example.com"
             };
             var user = Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(), "test user", "Test Family", "TestUsername", Email.CreateIfNotEmpty("test@gmail.com"));
-            var currentEvent = Core.Domain.Entities.Event.Event.CreatEvent(request.EventId, "Test Event", "This is a test event", "Test location",
+            var currentEvent = Core.Domain.Entities.Event.Event.CreateEvent(request.EventId, "Test Event", "This is a test event", "Test location",
                 DateTime.Now, DateTime.Now.AddHours(1), user);
 
             // Set up mock behavior

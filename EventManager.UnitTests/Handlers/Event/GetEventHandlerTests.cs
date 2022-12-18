@@ -27,7 +27,7 @@ namespace EventManager.UnitTests.Handlers.Event
             var user = Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(), "test user", "TestUserName", userName, Email.CreateIfNotEmpty("test@gmail.com"));
 
             _eventRepositoryMock.Setup(repo => repo.GetEventByIdAsync(It.IsAny<Guid>(), It.IsAny<CancellationToken>()))
-                .ReturnsAsync(Core.Domain.Entities.Event.Event.CreatEvent(Guid.NewGuid(), "Test Event", "This is a test event", "Test location",
+                .ReturnsAsync(Core.Domain.Entities.Event.Event.CreateEvent(Guid.NewGuid(), "Test Event", "This is a test event", "Test location",
                     DateTime.Now, DateTime.Now.AddHours(1), user));
 
             // Act

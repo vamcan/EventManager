@@ -24,7 +24,7 @@ namespace EventManager.Core.Application.User.AddUser
                     request.UserName, Email.CreateIfNotEmpty(request.Email));
                 user.SetPasswordHash(request.Password);
                 var result = await _userRepository.AddUserAsync(user,cancellationToken);
-                if (result == null ||result==false)
+                if (result==false)
                 {
                     return OperationResult<AddUserResult>.FailureResult("User failed to register.");
                 }

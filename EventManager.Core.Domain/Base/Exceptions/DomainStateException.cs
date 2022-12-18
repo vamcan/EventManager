@@ -1,6 +1,6 @@
 ﻿namespace EventManager.Core.Domain.Base.Exceptions
 {
-    public abstract class DomainStateException : Exception
+    public class DomainStateException : Exception
     {
         public string[] Parameters { get; set; }
 

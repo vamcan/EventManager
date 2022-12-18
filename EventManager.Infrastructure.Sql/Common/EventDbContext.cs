@@ -31,20 +31,20 @@ namespace EventManager.Infrastructure.Sql.Common
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
         {
-            AddAuitInfo();
+            AddAuditInfo();
             return base.SaveChanges(acceptAllChangesOnSuccess);
         }
 
 
         public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())
         {
-            AddAuitInfo();
+            AddAuditInfo();
             return base.SaveChangesAsync(cancellationToken);
         }
 
 
 
-        private void AddAuitInfo()
+        private void AddAuditInfo()
         {
             var entries = ChangeTracker.Entries().Where(x => x.Entity is IBaseEntity && (x.State == EntityState.Added || x.State == EntityState.Modified));
             foreach (var entry in entries)
