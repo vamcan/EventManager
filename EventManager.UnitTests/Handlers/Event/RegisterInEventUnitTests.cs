@@ -1,28 +1,27 @@
-﻿using EventManager.Core.Application.Event.RegisterAtEvent;
+﻿using EventManager.Core.Application.Event.RegisterInEvent;
 using EventManager.Core.Domain.Contracts.Repository;
 using Moq;
 using EventManager.Core.Domain.ValueObjects;
 using Xunit;
-using EventManager.Core.Domain.Entities.User;
 
 namespace EventManager.UnitTests.Handlers.Event
 {
-    public class RegisterAtEventHandlerTests
+    public class RegisterInEventHandlerTests
     {
         private readonly Mock<IEventRepository> _eventRepositoryMock;
-        private readonly RegisterAtEventHandler _handler;
+        private readonly RegisterInEventHandler _handler;
 
-        public RegisterAtEventHandlerTests()
+        public RegisterInEventHandlerTests()
         {
             _eventRepositoryMock = new Mock<IEventRepository>();
-            _handler = new RegisterAtEventHandler(_eventRepositoryMock.Object);
+            _handler = new RegisterInEventHandler(_eventRepositoryMock.Object);
         }
 
         [Fact]
-        public async Task TestRegisterAtEventHandler()
+        public async Task TestRegisterInEventHandler()
         {
             // Set up test data
-            var request = new RegisterAtEventCommand
+            var request = new RegisterInEventCommand
             {
                 EventId = Guid.NewGuid(),
                 Name = "Reza Ghasemi",
@@ -53,10 +52,10 @@ namespace EventManager.UnitTests.Handlers.Event
         }
 
         [Fact]
-        public async Task RegisterAtEventHandler_Should_Not_Add_Event_If_IEventRepository_Throws_An_Exception()
+        public async Task RegisterInEventHandler_Should_Not_Add_Event_If_IEventRepository_Throws_An_Exception()
         {
             // Arrange
-            var request = new RegisterAtEventCommand()
+            var request = new RegisterInEventCommand()
             {
                 EventId = Guid.NewGuid(),
                 Name = "Reza Ghasemi",
@@ -74,13 +73,13 @@ namespace EventManager.UnitTests.Handlers.Event
         }
 
         [Fact]
-        public async Task RegisterAtEventHandler_Should_Not_Register_Event_If_Event_Does_Not_Exist()
+        public async Task RegisterInEventHandler_Should_Not_Register_Event_If_Event_Does_Not_Exist()
         {
             var eventId = Guid.NewGuid();
             _eventRepositoryMock.Setup(r => r.GetEventByIdAsync(eventId, It.IsAny<CancellationToken>()))
                 .Returns(Task.FromResult<Core.Domain.Entities.Event.Event>(null));
 
-            var request = new RegisterAtEventCommand()
+            var request = new RegisterInEventCommand()
             {
                 EventId = eventId,
                 Name = "Reza Ghasemi",

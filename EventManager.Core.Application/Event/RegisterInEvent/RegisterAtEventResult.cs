@@ -1,8 +1,8 @@
 ﻿using EventManager.Core.Domain.ValueObjects;
 
-namespace EventManager.Core.Application.Event.RegisterAtEvent
+namespace EventManager.Core.Application.Event.RegisterInEvent
 {
-    public class RegisterAtEventResult
+    public class RegisterInEventResult
     {
         public string Name { get; set; }
         public string PhoneNumber { get; set; }

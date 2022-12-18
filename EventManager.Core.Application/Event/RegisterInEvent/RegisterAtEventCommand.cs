@@ -1,9 +1,9 @@
 ﻿using EventManager.Core.Application.Base.Common;
 using MediatR;
 
-namespace EventManager.Core.Application.Event.RegisterAtEvent
+namespace EventManager.Core.Application.Event.RegisterInEvent
 {
-    public class RegisterAtEventCommand: IRequest<OperationResult<RegisterAtEventResult>>
+    public class RegisterInEventCommand: IRequest<OperationResult<RegisterInEventResult>>
     {
         public string Name { get; set; }
         public string PhoneNumber { get; set; }

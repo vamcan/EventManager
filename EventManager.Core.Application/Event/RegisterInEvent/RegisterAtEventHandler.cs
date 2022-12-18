@@ -5,34 +5,34 @@ using EventManager.Core.Domain.Entities.Event;
 using EventManager.Core.Domain.ValueObjects;
 using MediatR;
 
-namespace EventManager.Core.Application.Event.RegisterAtEvent
+namespace EventManager.Core.Application.Event.RegisterInEvent
 {
-    public class RegisterAtEventHandler : IRequestHandler<RegisterAtEventCommand, OperationResult<RegisterAtEventResult>>
+    public class RegisterInEventHandler : IRequestHandler<RegisterInEventCommand, OperationResult<RegisterInEventResult>>
     {
         private readonly IEventRepository _eventRepository;
 
 
-        public RegisterAtEventHandler(IEventRepository eventRepository)
+        public RegisterInEventHandler(IEventRepository eventRepository)
         {
             _eventRepository = eventRepository;
         }
 
-        public async Task<OperationResult<RegisterAtEventResult>> Handle(RegisterAtEventCommand request, CancellationToken cancellationToken)
+        public async Task<OperationResult<RegisterInEventResult>> Handle(RegisterInEventCommand request, CancellationToken cancellationToken)
         {
             try
             {
                 var currentEvent = await _eventRepository.GetEventByIdAsync(request.EventId, cancellationToken);
                 if (currentEvent == null)
                 {
-                    return OperationResult<RegisterAtEventResult>.NotFoundResult("Event does not exist");
+                    return OperationResult<RegisterInEventResult>.NotFoundResult("Event does not exist");
 
                 }
                 var registration = Registration.CreateRegistration(Guid.NewGuid(), request.Name, PhoneNumber.CreateIfNotEmpty(request.PhoneNumber),
                     currentEvent, Email.CreateIfNotEmpty(request.Email));
-                currentEvent.RegisterAtEvent(registration);
+                currentEvent.RegisterInEvent(registration);
                 await _eventRepository.UpdateEventAsync(currentEvent, cancellationToken);
 
-                var result = new RegisterAtEventResult()
+                var result = new RegisterInEventResult()
                 {
                     Email = request.Email,
                     EventEndTime = currentEvent.EndTime,
@@ -42,11 +42,11 @@ namespace EventManager.Core.Application.Event.RegisterAtEvent
                     PhoneNumber = request.PhoneNumber
                 };
 
-                return OperationResult<RegisterAtEventResult>.SuccessResult(result);
+                return OperationResult<RegisterInEventResult>.SuccessResult(result);
             }
             catch (Exception e)
             {
-                return OperationResult<RegisterAtEventResult>.FailureResult(e.Message);
+                return OperationResult<RegisterInEventResult>.FailureResult(e.Message);
             }
 
         }

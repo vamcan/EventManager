@@ -57,7 +57,7 @@ namespace EventManager.Core.Domain.Entities.Event
             }
         }
 
-        public  void RegisterAtEvent(Registration registration)
+        public  void RegisterInEvent(Registration registration)
         {
             _registrations.Add(registration);
         }

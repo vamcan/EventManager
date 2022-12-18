@@ -1,11 +1,11 @@
 ﻿using EventManager.Core.Application.Event.GetEvent;
-using EventManager.Core.Application.Event.RegisterAtEvent;
+using EventManager.Core.Application.Event.RegisterInEvent;
 
 namespace EventManager.Web.App.Models
 {
-    public class RegisterAtEventViewModel
+    public class RegisterInEventViewModel
     {
-        public RegisterAtEventCommand RegisterAtEventCommand { get; set; }
+        public RegisterInEventCommand RegisterInEventCommand { get; set; }
         public GetEventResult GetEventResult { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿using EventManager.Core.Application.Event.RegisterAtEvent;
+﻿using EventManager.Core.Application.Event.RegisterInEvent;
 using EventManager.Core.Domain.Base.Exceptions;
 using EventManager.Core.Domain.Entities.Event;
 using EventManager.Core.Domain.ValueObjects;

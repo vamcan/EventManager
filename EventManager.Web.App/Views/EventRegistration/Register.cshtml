@@ -1,4 +1,4 @@
-﻿@model RegisterAtEventViewModel
+﻿@model RegisterInEventViewModel
 @{
     ViewBag.Title = "Event Registration:";
 }
@@ -49,18 +49,18 @@
 
             <div asp-validation-summary="All" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="RegisterAtEventCommand.Name" class="control-label"></label>
-                <input asp-for="RegisterAtEventCommand.Name" class="form-control" />
+                <label asp-for="RegisterInEventCommand.Name" class="control-label"></label>
+                <input asp-for="RegisterInEventCommand.Name" class="form-control" />
 
             </div>
             <div class="form-group">
-                <label asp-for="RegisterAtEventCommand.PhoneNumber" class="control-label"></label>
-                <input asp-for="RegisterAtEventCommand.PhoneNumber" class="form-control" />
+                <label asp-for="RegisterInEventCommand.PhoneNumber" class="control-label"></label>
+                <input asp-for="RegisterInEventCommand.PhoneNumber" class="form-control" />
 
             </div>
             <div class="form-group">
-                <label asp-for="RegisterAtEventCommand.Email" class="control-label"></label>
-                <input asp-for="RegisterAtEventCommand.Email" class="form-control" />
+                <label asp-for="RegisterInEventCommand.Email" class="control-label"></label>
+                <input asp-for="RegisterInEventCommand.Email" class="form-control" />
 
             </div>
             <br />
@@ -68,7 +68,7 @@
             <div class="form-group">
                 <input type="submit" value="Register" class="btn btn-primary" />
             </div>
-            <input asp-for="RegisterAtEventCommand.EventId" value="@Model.GetEventResult.Id" type="hidden" />
+            <input asp-for="RegisterInEventCommand.EventId" value="@Model.GetEventResult.Id" type="hidden" />
             <input asp-for="GetEventResult.Id" value="@Model.GetEventResult.Id" type="hidden" />
         </div>
     </div>

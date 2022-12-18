@@ -37,13 +37,13 @@ namespace EventManager.Web.App.Controllers
             var @event = await _mediator.Send(query);
             if (@event.IsSuccess)
             {
-                return View(new RegisterAtEventViewModel() { GetEventResult = @event.Result });
+                return View(new RegisterInEventViewModel() { GetEventResult = @event.Result });
             }
             return (RedirectToAction("Error"));
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterAtEventViewModel request, CancellationToken cancellationToken)
+        public async Task<IActionResult> Register(RegisterInEventViewModel request, CancellationToken cancellationToken)
         {
             if (!ModelState.IsValid)
             {
@@ -52,7 +52,7 @@ namespace EventManager.Web.App.Controllers
                 return View();
             }
 
-            var result = await _mediator.Send(request.RegisterAtEventCommand, cancellationToken);
+            var result = await _mediator.Send(request.RegisterInEventCommand, cancellationToken);
             if (result.IsSuccess)
             {
                 return RedirectToAction("RegisterSucceed");
