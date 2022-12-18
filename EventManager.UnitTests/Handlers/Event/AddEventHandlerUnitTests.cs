@@ -1,6 +1,5 @@
 ﻿using EventManager.Core.Application.Event.AddEvent;
 using EventManager.Core.Domain.Contracts.Repository;
-using EventManager.Core.Domain.Entities.User;
 using EventManager.Core.Domain.ValueObjects;
 using Moq;
 using Xunit;
@@ -24,7 +23,7 @@ namespace EventManager.UnitTests.Handlers.Event
         public async Task TestAddEventHandler()
         {
             var userName = "TestUserName";
-            var user = User.CreateUser(Guid.NewGuid(), "test user", "TestUserName", userName,Email.CreateIfNotEmpty("test@gmail.com"));
+            var user = Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(), "test user", "TestUserName", userName,Email.CreateIfNotEmpty("test@gmail.com"));
             _mockUserRepository.Setup(repo => repo.FindByUserNameAsync(userName,CancellationToken.None))
                 .ReturnsAsync(user);
 
@@ -64,7 +63,7 @@ namespace EventManager.UnitTests.Handlers.Event
         {
             string userName = "InvalidUserName";
             _mockUserRepository.Setup(r => r.FindByUserNameAsync(userName, CancellationToken.None))
-                .Returns(Task.FromResult<User>(null!)!);
+                .Returns(Task.FromResult<Core.Domain.Entities.User.User>(null!)!);
 
             var command = new AddEventCommand()
             {
@@ -88,7 +87,7 @@ namespace EventManager.UnitTests.Handlers.Event
         public async Task AddEventHandler_Should_Not_Add_Event_If_EndTime_Is_Smaller_Than_StartTime()
         {
             string userName = "TestUserName";
-            var user = User.CreateUser(Guid.NewGuid(), "test user", "Test Family", userName, Email.CreateIfNotEmpty("test@test.com"));
+            var user = Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(), "test user", "Test Family", userName, Email.CreateIfNotEmpty("test@test.com"));
             _mockUserRepository.Setup(repo => repo.FindByUserNameAsync(userName, CancellationToken.None))
                 .ReturnsAsync(user);
 
@@ -115,7 +114,7 @@ namespace EventManager.UnitTests.Handlers.Event
         {
 
             string userName = "TestUserName";
-            var user = User.CreateUser(Guid.NewGuid(), "test user","Test Family", userName, Email.CreateIfNotEmpty("test@test.com"));
+            var user = Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(), "test user","Test Family", userName, Email.CreateIfNotEmpty("test@test.com"));
             _mockUserRepository.Setup(repo => repo.FindByUserNameAsync(userName, CancellationToken.None))
                 .ReturnsAsync(user);
 

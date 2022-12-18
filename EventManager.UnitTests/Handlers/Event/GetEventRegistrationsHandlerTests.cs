@@ -26,7 +26,7 @@ namespace EventManager.UnitTests.Handlers.Event
         {
             // Arrange
             var userName = "TestUserName";
-            var user = User.CreateUser(Guid.NewGuid(), "test user", "TestUserName", userName, Email.CreateIfNotEmpty("test@gmail.com"));
+            var user = Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(), "test user", "TestUserName", userName, Email.CreateIfNotEmpty("test@gmail.com"));
            
             var eventId = Guid.NewGuid();
             var @event = Core.Domain.Entities.Event.Event.CreatEvent(eventId, "Test Event", "This is a test event", "Test location",

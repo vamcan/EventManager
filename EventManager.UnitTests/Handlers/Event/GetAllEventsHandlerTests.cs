@@ -1,6 +1,5 @@
 ﻿using EventManager.Core.Application.Event.GetAllEvents;
 using EventManager.Core.Domain.Contracts.Repository;
-using EventManager.Core.Domain.Entities.User;
 using EventManager.Core.Domain.ValueObjects;
 using Moq;
 using Xunit;
@@ -25,7 +24,7 @@ namespace EventManager.UnitTests.Handlers.Event
         {
             // Arrange
             var userName = "TestUserName";
-            var user = User.CreateUser(Guid.NewGuid(), "test user", "TestUserName", userName, Email.CreateIfNotEmpty("test@gmail.com"));
+            var user = Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(), "test user", "TestUserName", userName, Email.CreateIfNotEmpty("test@gmail.com"));
             _eventRepositoryMock.Setup(repo => repo.GetAllEventsAsync(It.IsAny<CancellationToken>()))
                 .ReturnsAsync(new List<Core.Domain.Entities.Event.Event> {
                    
