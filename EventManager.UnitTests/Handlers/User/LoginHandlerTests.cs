@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EventManager.Core.Application.User.Login;
+﻿using EventManager.Core.Application.User.Login;
 using EventManager.Core.Domain.Contracts.Repository;
 using EventManager.Core.Domain.ValueObjects;
 using Moq;
@@ -28,7 +23,7 @@ namespace EventManager.UnitTests.Handlers.User
             // Arrange
             var request = new LoginCommand
             {
-                UserName = "johndoe",
+                UserName = "test",
                 Password = "123456"
             };
             var user = Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(), "test User", "Test LastName"
@@ -51,7 +46,7 @@ namespace EventManager.UnitTests.Handlers.User
             // Arrange
             var request = new LoginCommand
             {
-                UserName = "johndoe",
+                UserName = "test",
                 Password = "123456"
             };
             var user = Core.Domain.Entities.User.User.CreateUser(Guid.NewGuid(), "test User", "Test LastName"
@@ -73,7 +68,7 @@ namespace EventManager.UnitTests.Handlers.User
             // Arrange
             var request = new LoginCommand
             {
-                UserName = "johndoe",
+                UserName = "test",
                 Password = "123456"
             };
             _userRepositoryMock.Setup(x => x.FindByUserNameAsync(request.UserName, CancellationToken.None))

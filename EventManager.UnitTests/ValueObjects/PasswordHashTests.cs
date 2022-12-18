@@ -22,7 +22,7 @@ namespace EventManager.UnitTests.ValueObjects
         {
             // Arrange
             string password = "password123";
-            string expectedHash = "D4C36D01AC610A5AA2B3816EA662FA61";
+            string expectedHash = "FE1F47D38EB7B2FCD97E447D88E0BA2CF8ABCD1683733223FCA9A0366AAF7261";
 
             // Act
             string actualHash = PasswordHash.CreateIfNotEmpty(password).Value;
